@@ -1,0 +1,56 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/chart-area-demo.js"></script>
+<script src="../js/demo/chart-pie-demo.js"></script>
+
+<script>
+console.log("je suis ici dans dash")
+
+$(document).ready(function() {
+
+    $.ajax({
+    method: "GET", 
+    url: "/admin/stats", 
+    async: true,
+    success: function(data) {
+        mydata = data[0];
+        statisticsData = mydata.statistics
+        console.log(statisticsData);
+
+             let nombre_dutilisateurs;
+             let nombre_dabonnes;
+             let total_decoutes;
+             let nombre_chaines_creee;
+             
+        for(var j=0;j<mydata.statistics.length;j++){
+            nombre_dutilisateurs = mydata.statistics[j].nombre_dutilisateurs;
+            nombre_dabonnes = mydata.statistics[j].nombre_dabonnes;
+            total_decoutes = mydata.statistics[j].total_decoutes;
+            nombre_chaines_creee = mydata.statistics[j].nombre_chaines_creee;
+        }
+
+            $("#nombre_dutilisateurs").html(nombre_dutilisateurs);
+            $("#nombre_dabonnes").html(nombre_dabonnes);
+            $("#total_decoutes").html(total_decoutes);
+            $("#nombre_chaines_creee").html(nombre_chaines_creee);
+       
+    }
+
+});
+
+});
+
+</script>

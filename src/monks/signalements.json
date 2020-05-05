@@ -1,0 +1,44 @@
+{
+    "signalements" : [
+        {
+            "id": "1",
+            "avatar": "<img class='rounded-circle avatar-miky' src='../../assets/artist image.png'/>",
+            "nom_chaine" :"MikySound",
+            "nombre_signalement":"758",
+            "list_signalement": "voir",
+            "management": "Bannir"
+        },
+        {
+            "id": "2",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"AlexSound",
+            "nombre_signalement":"231",
+            "list_signalement": "voir",
+            "management": "Bannir"
+        },
+        {
+            "id": "3",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"JeanSound",
+            "nombre_signalement":"25",
+            "list_signalement": "voir",
+            "management": "Bannir"
+        },
+        {
+            "id": "4",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"PapaSound",
+            "nombre_signalement":"10",
+            "list_signalement": "voir",
+            "management": "Bannir"
+        },
+        {
+            "id": "5",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"EmeSound",
+            "nombre_signalement":"5",
+            "list_signalement": "voir",
+            "management": "Bannir"
+        }
+    ]
+}    

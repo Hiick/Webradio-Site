@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include 'admin/head.html.twig' %}
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+    {% include 'admin/sidebar.html.twig' %}
+        <!-- Main Content -->
+        <div id="content">
+            {% include 'admin/navigation.html.twig' %}
+            
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-6 d-flex">
+                        <a class="retour mt-auto mb-1" href="{{ path('admin.index') }}" >
+                            <i id="fleche-retour" class="fas fa-long-arrow-alt-left"></i>
+                            <button id="bouton-retour" class="btn btn-sm rounded-pill">retour</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="main d-flex flex-column align-items-center justify-content-center">
+                    <!--img logo-->
+                    <div class="rounded-circle avatar with-default">
+                        <i class="fa-3x far fa-edit"></i>
+                    </div>
+                    <!--input-->
+                    <div class="row mb-5">
+                        <div class="col-sm">
+                            <div class="form-group settingsAdmin" id="name">
+                                <input type='text' class='form-control text-center text-black' placeholder='Username' value=''>
+                            </div>
+                            <div class="form-group settingsAdmin" id="nomchaine">
+                                <input type='text' class='form-control text-center text-black' placeholder='Email' value=''>
+                            </div>
+                            <div class="form-group settingsAdmin">
+                                <input type='text' class='form-control text-center text-black' placeholder='Mot de passe' value=''>
+                            </div>
+                            <div class="form-group settingsAdmin">
+                                <input type="button" id="button-settingsAdmin" class="form-control border-0 font-weight-bold text-white"  style="background-color:#EF0051;" value="Enregistrer">
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span class="text-black">Copyright &copy; Webradio - Stream - 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+{% include 'admin/settings/script.html.twig' %}
+
+</body>
+
+</html>

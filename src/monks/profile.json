@@ -1,0 +1,15 @@
+{
+    "users" : [
+        
+        {
+            "id": "1",
+            "email": "mike.sylvestre@gmail.com",
+            "username": "MikeSylv",
+            "nom_chaine": "MikySound",
+            "avatar": "../assets/artist image.png",
+            "role":"USER",
+            "password": "123456"
+
+        }
+    ]
+}

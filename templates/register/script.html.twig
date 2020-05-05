@@ -1,0 +1,47 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- facebook -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v6.0&appId=1268121773351660&autoLogAppEvents=1">
+</script>
+
+<script>
+console.log('ici register');
+
+$('#connexion').click(function(e) {
+
+    $.ajax({
+        url: '/register',
+        type: 'POST',
+        data: JSON.stringify({
+            "username": $('#username').val(),
+            "email": $('#email').val(),
+            "password": $('#password').val()
+        }),
+        async: true, 
+        success: function () {
+            let username = $('#username').val();
+            console.log('compte crée avec succès');
+            setTimeout(function() {
+                window.location.href = "/profile/"+username
+            }, 2000)
+        },
+        error: function (error) {
+            $('#message').html('L\'utilisateur existe déjà !'+error);
+            $('#message').css('display', 'block');
+        }
+       
+    });
+   
+});
+
+ </script>

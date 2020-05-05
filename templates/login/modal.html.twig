@@ -1,0 +1,40 @@
+<div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content border0">
+           <div class="modal-header border-bottom-0" style="height: 100px;">
+                <span class="rounded-circle imgModal border border1"></span>
+           </div>
+           <div class="row">
+                <div class="col-sm-12">
+                    <form action="path('login')" method="POST">
+                     {% if error is defined and error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                        <div class="form-group champ">
+                            <input type="email" class="form-control" name="_username"  value="" placeholder="Email">
+                        </div>
+                        <div class="form-group champ">
+                            <input type="password" name="_password" class="form-control" placeholder="Mot de passe">
+                        </div>
+                        <div class="form-group champ">
+                            <button  id="login" type="submit" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;">Connexion</button>
+                        </div>
+                            <div class="fb-login-button" data-width="280" data-size="medium" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false">
+                            </div>
+                        <div class="modal-footer">
+                            <ul class="pl-0 d-flex flex-column w-100">
+                                <li class=" d-lg-inline text-gray-600 small text-center" style="display: inline-block">Pas encore inscrit ? <a class="text-pink" href="#registerModal" data-toggle="modal" data-dismiss="modal">Inscrivez-vous</a></li>
+                                <li class=" d-lg-inline text-gray-600 small text-center" style="display: inline-block">Mot de passe oublié ? <a class="text-pink" href="#passwordLostModal" data-toggle="modal" data-dismiss="modal">C’est ici</a></li>
+                            </ul>
+                        </div>
+                    </form>         
+                </div>
+           </div>
+
+        </div>
+    </div>
+</div>
+{% include 'register/modal.html.twig' %}
+{% include 'PasswordLost/modal.html.twig' %}
+{% include 'login/script.html.twig' %}

@@ -1,0 +1,116 @@
+{
+    "users" : [
+        {
+            "id": "1",
+            "email": "alexandre@gmail.com",
+            "username": "Alexandre",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"AlexSound",
+            "role":"ADMIN",
+            "status": "Active",
+            "password": "123456"
+
+        },
+
+        {
+            "id": "2",
+            "email": "emerick@gmail.com",
+            "username": "Emerick",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"EmeSound",
+            "role":"ADMIN",
+            "status": "Active",
+            "password": "123456"
+
+        },
+        {
+            "id": "3",
+            "email": "mike.sylvestre@gmail.com",
+            "username": "MikeSylv",
+            "avatar": "<img class='rounded-circle avatar-miky' src='../../assets/artist image.png'/>",
+            "nom_chaine" :"MikySound",
+            "role":"ADMIN",
+            "status": "Active",
+            "password": "123456"
+
+        },
+        {
+            "id": "4",
+            "email": "Antoine@gmail.com",
+            "username": "Antoine",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"AntSound",
+            "role":"USER",
+            "status": "Active",
+            "password": "123456"
+
+        },
+
+        {
+            "id": "5",
+            "email": "didier@gmail.com",
+            "username": "Didier",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"DidiSound",
+            "role":"USER",
+            "status": "Active",
+            "password": "123456"
+
+        },
+        {
+            "id": "6",
+            "email": "jean@gmail.com",
+            "username": "Jean",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"JeanSound",
+            "role":"USER",
+            "status": "Active",
+            "password": "123456"
+
+        },
+        {
+            "id": "7",
+            "email": "pascal@gmail.com",
+            "username": "Pascal",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"PapaSound",
+            "role":"USER",
+            "status": "Active",
+            "password": "123456"
+
+        },
+        {
+            "id": "8",
+            "email": "jane@gmail.com",
+            "username": "Jane",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"JaneSound",
+            "role":"USER",
+            "status": "Active",
+            "password": "123456"
+
+        },
+        {
+            "id": "9",
+            "email": "jodie@gmail.com",
+            "username": "Jodie",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"JodieSound",
+            "role":"USER",
+            "status": "Active",
+            "password": "123456"
+
+        },
+        {
+            "id": "10",
+            "email": "viviane@gmail.com",
+            "username": "Viviane",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"ViviSound",
+            "role":"USER",
+            "status": "Active",
+            "password": "123456"
+
+        }
+    ]
+}

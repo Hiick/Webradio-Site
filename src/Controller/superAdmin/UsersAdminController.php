@@ -56,14 +56,14 @@ class UsersAdminController extends BaseController{
      */
     public function new(Request $request): Response
     {
-        $user = new User();
+       /* $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            //$entityManager = $this->getDoctrine()->getManager();
+            $this->em->persist($user);
+            $this->em->flush();
 
             return $this->redirectToRoute('superadmin.users.index');
         }
@@ -71,7 +71,28 @@ class UsersAdminController extends BaseController{
         return $this->render('superadmin/user/new/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
-        ]);
+        ]);*/
+        $content = $request->getContent();
+
+        if(!empty($content)) {
+
+            $params = json_decode($content, true);
+
+            $user = new User();
+
+            $user->setAvatar("<i class='fas fa-user-circle fa-2x text-dark-300'></i>");
+            $user->setUsername($params['username']);
+            $user->setEmail($params['email']);
+            $user->setChannels($params['nomchaine']);
+            $user->setRoles($params['role']);
+            $user->setStatus("Active");
+           
+            $this->em->persist($user);
+            $this->em->flush();
+
+        }
+
+        return $this->render('superadmin/user/new/new.html.twig');
     }
 
     /**

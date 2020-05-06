@@ -57,7 +57,7 @@ class User implements UserInterface, Serializable
     private $roles;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
 

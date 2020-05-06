@@ -114,6 +114,7 @@ div.rounded-circle.avatar{
 }
 .avatar i.fa-3x.far.fa-edit{
     color: #EF0051;
+    cursor: pointer;
    
 }
 
@@ -214,16 +215,14 @@ padding-right: 0px !important;
     background-color: #fff;
 }
 .bouton-password{
-    position: absolute;
-    top:-2px;
-    left: 171px;
+    position: relative;
     color:white;
-    height:45px;
-    width: 45px;
+    height:60px;
+    width: 60px;
     background: #EF0051;
     background-position:center;
     background-size:20px;
-    border-radius: 25px;
+    border-radius: 50px;
     padding: 15px;
     border: none;
 }
@@ -232,9 +231,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
     transition: transform 0.3s;}
 .fas.fa-arrow-right{
     position: relative;
-    font-size: 30px;
-    top: -7px;
-    left: -5px;
+    font-size: 1.9rem;
 }
 .password-input{
     border-radius: .95rem !important; 
@@ -260,7 +257,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 
 .form-group.champ input.form-control {text-align: center !important;}
 .login-body{transform: translate(0%, -20%)}
-.passwordLost-body{ position: relative; transform: translate(0%, -50%)}
+.passwordLost-body{ position: relative; bottom: 65px;}
 
 .setting{width: 90vh; margin-bottom: 1.94rem;}
 .setting .form-control{border-radius: .95rem !important; }
@@ -394,6 +391,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         position: absolute;
         top: 90px;
         right: 90px;
+        cursor: pointer;
     }
     .logo-addUser, .logo-settingsAdmin, .logo-editchannel, .logo-notifications{
         position: relative;
@@ -403,7 +401,10 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         padding:20px;
         width: 320px;
     }
-
+    .modal-dialog.passwordLost {
+        width: 300px !important;
+        height: 210px !important;
+    }
 
  }
  @media (max-width:575.98px){
@@ -414,6 +415,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         position: absolute;
         top: 90px;
         right: 90px;
+        cursor: pointer;
     }
 
    
@@ -461,6 +463,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         position: absolute;
         top: 90px;
         right: 90px;
+        cursor: pointer;
     }
 
  }
@@ -490,7 +493,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         position: relative;
         left: 20px
     }
-    .avatar i.fa-3x.far.fa-edit{position: absolute;top: 90px;right: 90px;}
+    .avatar i.fa-3x.far.fa-edit{position: absolute;top: 90px;right: 90px; cursor: pointer;}
 
  }
 
@@ -539,7 +542,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
  }
 
  /*input select*/
- select#user_roles.form-control{
+ select#user_roles.form-control, select#sel1.form-control{
     text-align-last: center !important;
     padding-right: 2px;
 }
@@ -569,6 +572,10 @@ a.far.fa-trash-alt.fa-2x :hover {
     background-color: #fff;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.014),0 1px 2px 0 rgba(255, 255, 255, 0.04),0 2px 1px -1px rgba(247, 247, 247, 0),0 1px 6px 0 rgba(255, 255, 255, 0);
 }
+.modal-dialog.passwordLost {
+    width: 300px !important;
+    height: 210px !important;
+}
 
 .modal {
     padding: 20px;
@@ -594,6 +601,7 @@ a.far.fa-trash-alt.fa-2x :hover {
 
 .modal-content {
     border: none;
+    background-color: initial !important;
 }
 .jumbotron{
     background-color: inherit !important;
@@ -699,5 +707,31 @@ a.calendar__day:hover {
 
 .modal-footer {
     border-top: none !important;
+}
+
+input[type="file"]{
+display: none;
+}
+
+label{
+    color: black;
+    height: 60px;
+    width: 250px;
+    background-color: #f5af09;
+    position: absolute;
+    margin: auto;
+    top:0;
+    left: 0;
+    right: 0;
+}
+.page-link{
+    color: #EF0051;
+    background-color: white;
+}
+.page-item.active .page-link{
+    color: #fff;
+    background-color: #EF0051;
+    border-color:  #EF0051;
+
 }
 

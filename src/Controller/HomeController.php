@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface; 
 
 
+
 class HomeController extends BaseController {
 
     private $repository;

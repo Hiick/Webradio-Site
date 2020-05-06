@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class adminDashController extends BaseController{
+class AdminDashController extends BaseController{
 
     /**
      * @Route("/admin", name="admin.index")

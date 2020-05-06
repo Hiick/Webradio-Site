@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     {% include 'admin/head.html.twig' %}
-    {% include 'admin/channel/script.html.twig' %}
+    {% include 'admin/Signalements/script.html.twig' %}
 <body id="page-top">
 
 <!-- Page Wrapper -->
@@ -15,7 +15,7 @@
 
                 <div class="row mt-4 mb-2">
                     <div class="col-xl-2">
-                        <h4 class="h4 text-gray-800">Chaînes</h4>
+                        <h4 class="h4 text-gray-800">Signalements</h4>
                     </div>
                     <div class="col-xl-10 d-flex"> 
 
@@ -42,25 +42,25 @@
                                         <tr id='entete' role="row">
                                             <th scope='col'>Avatar</th>
                                             <th scope='col'>Nom de la chaîne</th>
-                                            <th scope='col'>Propriétaire</th>
-                                            <th scope='col'>Status</th>
+                                            <th scope='col'>Nombre de signalements</th>
+                                            <th scope='col'>Liste des signalements</th>
                                             <th scope='col'>Management</th>
                                         </tr>
                                     </thead>
                                     <tbody id='corps-table'>
-                                         {% for channel in channels %}
+                                         {% for Signalement in Signalements %}
                                             <tr>
-                                                <td>{{ channel.avatar|raw }}</td>
-                                                <td>{{ channel.nomChaine }}</td>
-                                                <td>{{ channel.proprietaire }}</td>
-                                                <td>{{ channel.status }}</td>
-                                                <td><a href='#removeModal' data-toggle='modal' data-dismiss='modal' class='far fa-trash-alt fa-2x' id=''></a><a href='{{ path('admin.channel.edit', {id: channel.id}) }}' class='fa-2x far fa-edit' id=''></a></td>
+                                                <td>{{ Signalement.avatar|raw }}</td>
+                                                <td>{{ Signalement.nomChaine }}</td>
+                                                <td>{{ Signalement.nombreSignal }}</td>
+                                                <td><a href='{{ path('admin.Signalements.show', {slug: Signalement.slug, id: Signalement.id}) }}' >{{ Signalement.listSignal }}</a></td>
+                                                <td><a href='#bannirModal' data-toggle='modal' data-dismiss='modal' class='text-danger'>{{ Signalement.management }}</a></td>
                                             </tr>
                                          {% endfor %}
                                     </tbody>
                                     </table>
                                     <div class="pagination mt-2 d-flex justify-content-center" id="pagination_data">
-                                        {{ knp_pagination_render(channels) }}
+                                        {{ knp_pagination_render(Signalements) }}
                                     </div>      
                                   </div>
                                 </div>                                

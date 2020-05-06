@@ -255,7 +255,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 #aside-nav{width: 100%;}
 
 
-.form-group.champ {margin-bottom: 1.4rem;}
+.form-group.champ {margin-bottom: 1rem;}
 .champ .form-control {border-radius: .95rem !important;}
 
 .form-group.champ input.form-control {text-align: center !important;}
@@ -292,14 +292,14 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 #player-container #play-pause {
     cursor: pointer;
     text-indent: -999999px;
-    height:40px;
-    width: 40px;
+    height:70px;
+    width: 70px;
     background: #EF0051;
     background-repeat:no-repeat;
     background-image: url('../assets/play.png');
     background-position:center;
-    background-size:15px;
-    border-radius: 25px;
+    background-size:17px;
+    border-radius: 50px;
     padding: 20px;
     box-shadow: 0 6px 10px 0 #0000001a,0 1px 18px 0 #0000001a, 0 3px 5px -1px #0003;
     transition: transform 0.3s;
@@ -564,7 +564,7 @@ a.far.fa-trash-alt.fa-2x :hover {
 
 .modal-dialog {
     padding:20px;
-    width: 320px;
+    width: 350px;
     border-radius: 16px;
     background-color: #fff;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.014),0 1px 2px 0 rgba(255, 255, 255, 0.04),0 2px 1px -1px rgba(247, 247, 247, 0),0 1px 6px 0 rgba(255, 255, 255, 0);
@@ -690,5 +690,14 @@ a.calendar__day:hover {
 
 .form-control#eventTime{
     width: 200px !important;
+}
+
+.alert{
+    padding: 0.7rem 1.2rem !important;
+    margin-bottom: 0.7rem !important;
+}
+
+.modal-footer {
+    border-top: none !important;
 }
 

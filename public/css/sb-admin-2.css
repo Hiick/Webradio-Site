@@ -598,6 +598,18 @@ a.far.fa-trash-alt.fa-2x :hover {
     background-position:center;
     background-size: 13vh;   
 }
+.check{
+    background-repeat:no-repeat;
+    background-image: url('../assets/Image 42.png');
+    background-position:center; 
+    height: 178px;
+    width: 190px;
+    border-radius: 50%
+}
+.check-body{
+    position: relative;
+    bottom: 1.95rem;
+}
 
 .modal-content {
     border: none;

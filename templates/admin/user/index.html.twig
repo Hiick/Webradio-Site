@@ -59,7 +59,7 @@
                                                 <td>{{ user.status }}</td>
                                                 <td>
                                                     {% if user.roles == "ADMIN" %}
-                                                    <a href='{{ path('admin.users.edit', {'id': user.id}) }}' class='fa-2x far fa-edit' id=''></a>
+                                            
                                                 </td>
                                                 {% else %}
                                                     <form method="post" action="{{ path('admin.channel.delete', {'id': user.id}) }}" style="display: inline-block" onsubmit="return confirm('Are you sure you want to delete this item?');">

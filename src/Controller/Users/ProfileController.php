@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/profile")
@@ -27,22 +28,26 @@ class ProfileController extends BaseController {
         $this->em = $em;
     }
     /**
-     * @Route("/{username}", name="profile.index", methods={"GET","POST"})
+     * permet à l'utilisateur de voir son compte
+     * @Route("/", name="profile.index", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
-    public function index(Request $request, User $user): Response {
+    public function index(): Response {
 
-        $content = $request->getContent();
+        return $this->render('Users/base.html.twig', [
+            'user' => $this->getUser(),
+        ]);
+    }
 
-        if(!empty($content)) {
-
-            $params = json_decode($content, true);
-            $usernane = $params['usernane'];
-            $user = $this->repository->findTheUser($usernane);
-        }
-        
-         
-        return $this->render('Users/base.html.twig', compact('user'));
-
+    /**
+     * @Route("/profile/setting", name="profile.setting.index")
+     * @IsGranted("ROLE_USER")
+     */
+    public function setting(Request $request): Response {
+        $user = $this->getUser();
+        return $this->render('Users/Settings/base.html.twig', [
+            'user' => $user
+        ]);
     }
 
 

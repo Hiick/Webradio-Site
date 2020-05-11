@@ -43,7 +43,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Users[]
+     * @return User[]
      */
     public function findLastest() :array
     {
@@ -64,13 +64,11 @@ class UserRepository extends ServiceEntityRepository
 
     }
 
-    public function findUserByMail($email, $password) 
-    {
+    public function findUserByMail(User $email) 
+    {    
         return $this->findVisibleQuery()
         ->andWhere('u.email = :email')
-        ->andWhere('u.password = :password')
         ->setParameter(':email', $email)
-        ->setParameter(':password', $password)
         ->getQuery()
         ->getResult();
 

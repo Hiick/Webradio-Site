@@ -18,8 +18,8 @@ class User implements UserInterface, Serializable
 {
 
     const DefaultRole = [
-        'User' => 'USER',
-        'Admin' => 'ADMIN'
+        'ROLE_USER' => 'USER',
+        'ROLE_ADMIN' => 'ADMIN',
     ];
 
     /**
@@ -167,7 +167,7 @@ class User implements UserInterface, Serializable
      */
     public function getRoles()
     {
-        return $this->roles;
+        return array($this->roles);
     }
 
     public function getDefaultRole(): string
@@ -206,7 +206,7 @@ class User implements UserInterface, Serializable
      *
      * @return string The username
      */
-    public function getUsername(): ?string
+    public function getUsername()
     {
         return $this->username;
     }

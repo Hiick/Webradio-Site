@@ -6,7 +6,7 @@
             "username": "Alexandre",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"AlexSound",
-            "role":"ADMIN",
+            "role":"ROLE_ADMIN",
             "status": "Active",
             "password": "123456"
 
@@ -18,7 +18,7 @@
             "username": "Emerick",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"EmeSound",
-            "role":"ADMIN",
+            "role":"ROLE_ADMIN",
             "status": "Active",
             "password": "123456"
 
@@ -29,7 +29,7 @@
             "username": "MikeSylv",
             "avatar": "<img class='rounded-circle avatar-miky' src='../../assets/artist image.png'/>",
             "nom_chaine" :"MikySound",
-            "role":"ADMIN",
+            "role":"ROLE_ADMIN",
             "status": "Active",
             "password": "123456"
 
@@ -40,7 +40,7 @@
             "username": "Antoine",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"AntSound",
-            "role":"USER",
+            "role":"ROLE_USER",
             "status": "Active",
             "password": "123456"
 
@@ -52,7 +52,7 @@
             "username": "Didier",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"DidiSound",
-            "role":"USER",
+            "role":"ROLE_USER",
             "status": "Active",
             "password": "123456"
 
@@ -63,7 +63,7 @@
             "username": "Jean",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"JeanSound",
-            "role":"USER",
+            "role":"ROLE_USER",
             "status": "Active",
             "password": "123456"
 
@@ -74,7 +74,7 @@
             "username": "Pascal",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"PapaSound",
-            "role":"USER",
+            "role":"ROLE_USER",
             "status": "Active",
             "password": "123456"
 
@@ -85,7 +85,7 @@
             "username": "Jane",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"JaneSound",
-            "role":"USER",
+            "role":"ROLE_USER",
             "status": "Active",
             "password": "123456"
 
@@ -96,7 +96,7 @@
             "username": "Jodie",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"JodieSound",
-            "role":"USER",
+            "role":"ROLE_USER",
             "status": "Active",
             "password": "123456"
 
@@ -107,8 +107,19 @@
             "username": "Viviane",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"ViviSound",
-            "role":"USER",
+            "role":"ROLE_USER",
             "status": "Active",
+            "password": "123456"
+
+        },
+        {
+            "id": "11",
+            "email": "superadmin@gmail.com",
+            "username": "Superadmin",
+            "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
+            "nom_chaine" :"",
+            "role":"ROLE_SUPER_ADMIN",
+            "status": "",
             "password": "123456"
 
         }

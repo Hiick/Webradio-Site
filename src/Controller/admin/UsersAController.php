@@ -80,7 +80,7 @@ class UsersAController extends BaseController{
 
             $user = new User();
 
-            $user->setAvatar("<i class='fas fa-user-circle fa-2x text-dark-300'></i>");
+           // $user->setAvatar($params['']);
             $user->setUsername($params['username']);
             $user->setEmail($params['email']);
             $user->setChannels($params['nomchaine']);

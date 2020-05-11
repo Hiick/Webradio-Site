@@ -11,18 +11,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class LoginController extends BaseController {
 
     /**
-     * @Route("/login", name="login")
+     * @Route("", name="")
      */
-    public function login(Request $request, User $user) {
+   /* public function login(Request $request) {
 
+        $user = new User();
         $content = $request->getContent();
 
         if(!empty($content)) {
 
             $params = json_decode($content, true);
-            $email = $params['email'];
-            $password = $params['password'];
-            $user = $this->repository->findUserByMail($email, $password);
+            $email = $user->getEmail($params['email']);
+            dump($email);
+            $user = $this->repository->findUserByMail($email);
              $admin = "ADMIN";
              $superadmin = "SUPERADMIN";
              $user = "USER";
@@ -34,13 +35,13 @@ class LoginController extends BaseController {
                 return $this->redirectToRoute('admin.index');
             }
             else {
-                return $this->redirectToRoute('profil.index', ['username'=> $user->getUsername()]);
+                return $this->redirectToRoute('profil.index');
             }
             
         }
         
 
         
-    }
+    }*/
 
 }

@@ -92,4 +92,12 @@ class PlanningController extends BaseController {
 
         return new $cal->myCalen($month, $year);
     }
+
+    /**
+     * @Route("/profile/timeline", name="profile.timeline.index")
+     */
+    public function timeline (): Response {
+
+        return $this->render('Users/Timeline/base.html.twig');
+    }
 }

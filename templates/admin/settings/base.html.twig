@@ -26,22 +26,27 @@
                         <i class="fa-3x far fa-edit" id="avatar" onclick="inputBtn();"></i>
                     </div>
                     <!--input-->
+
+                    {{ form_start(settingsForm) }}
+
                     <div class="row mb-5">
                         <div class="col-sm">
                             <div class="form-group settingsAdmin" id="name">
-                                <input type='text' class='form-control text-center text-black' placeholder='Username' value=''>
+                                {{form_row(settingsForm.username)}}
                             </div>
                             <div class="form-group settingsAdmin" id="nomchaine">
-                                <input type='text' class='form-control text-center text-black' placeholder='Email' value=''>
+                                {{form_row(settingsForm.channels)}}
                             </div>
                             <div class="form-group settingsAdmin">
-                                <input type='text' class='form-control text-center text-black' placeholder='Mot de passe' value=''>
+                                {{form_row(settingsForm.password)}} 
                             </div>
                             <div class="form-group settingsAdmin">
                                 <input type="button" id="button-settingsAdmin" class="form-control border-0 font-weight-bold text-white"  style="background-color:#EF0051;" value="Enregistrer">
                             </div>
                         </div>
                     </div>
+
+                    {{ form_end(settingsForm)}}
                 </div>  
             </div>
 

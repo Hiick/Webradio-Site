@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-10 d-flex flex-column align-items-center justify-content-center">
-                        <div class="">
+                        <div class="titre-setting">
                             <h1 class="h2 mt-2 text-black">Gestion du compte</h1>
                         </div>
                     </div>
@@ -34,22 +34,27 @@
                         <i class="fa-3x far fa-edit" id="avatar" onclick="inputBtn();"></i>
                     </div>
                     <!--input-->
+
+                    {{ form_start(settingForm) }}
                     <div class="row mb-5">
                         <div class="col-sm">
                             <div class="form-group setting">
-                            <input type="text" class="form-control text-center text-black" id="nom" value="{{ user.username}}">
-                        </div>
-                         <div class="form-group setting">
-                            <input type="text" class="form-control text-center text-black" id="nomChaine" value="{{ user.channels}}">
-                        </div>
-                        <div class="form-group setting">
-                            <input type="password" class="form-control text-center text-black" id="mdp" value="{{ user.password}}">
-                        </div>
-                        <div class="form-group setting">
-                            <input type="button" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" value="Enregistrer">
-                        </div>
+                                {{form_row(settingForm.username)}}
+                            </div>
+
+                            <div class="form-group setting">
+                                {{form_row(settingForm.channels)}}
+                            </div>
+
+                            <div class="form-group setting">
+                                 {{form_row(settingForm.password)}} 
+                            </div>
+                            <div class="form-group setting">
+                                <input type="submit" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" value="Enregistrer">
+                            </div>
                         </div>
                     </div>
+                    {{ form_end(settingForm)}}
                 </div>  
             </div>
         <!-- Footer -->
@@ -76,5 +81,18 @@
 {% include 'Users/Settings/script.html.twig' %}
 
 </body>
-
+                        <!--<div class="col-sm">
+                            <div class="form-group setting">
+                            <input type="text" class="form-control text-center text-black" id="nom" value="">
+                        </div>
+                         <div class="form-group setting">
+                            <input type="text" class="form-control text-center text-black" id="nomChaine" value="">
+                        </div>
+                        <div class="form-group setting">
+                            <input type="password" class="form-control text-center text-black" id="mdp" value="">
+                        </div>
+                        <div class="form-group setting">
+                            <input type="button" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" value="Enregistrer">
+                        </div>
+                        </div>-->
 </html>

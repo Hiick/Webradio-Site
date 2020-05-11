@@ -43,7 +43,6 @@
                                             <th scope='col'>Username</th>
                                             <th scope='col'>Email</th>
                                             <th scope='col'>Chaîne</th>
-                                            <th scope='col'>Rôle</th>
                                             <th scope='col'>Status</th>
                                             <th scope='col'>Management</th>
                                         </tr>
@@ -55,7 +54,6 @@
                                                 <td>{{ user.username }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td>{{ user.channels }}</td>
-                                                <td>{{ user.roles }}</td>
                                                 <td>{{ user.status }}</td>
                                                 <td>
                                                     {% if user.roles == "ADMIN" %}

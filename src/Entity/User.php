@@ -12,14 +12,15 @@ use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity({"email", "username"}, message="Celui-ci est déjà pris")
+ * @UniqueEntity({"email"}, message="Celui-ci est déjà pris")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface, Serializable
 {
 
     const DefaultRole = [
-        'ROLE_USER' => 'USER',
-        'ROLE_ADMIN' => 'ADMIN',
+        'ROLE_USER' => 'ROLE_USER',
+        'ROLE_ADMIN' => 'ROLE_ADMIN',
     ];
 
     /**
@@ -66,11 +67,14 @@ class User implements UserInterface, Serializable
      */
     private $status;
 
-     /**
-     * @ORM\Column(type="datetime")
+    /**
+     * @ORM\Column(type="string", length=255)
      */
+    private $slug;
 
 
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -95,11 +99,19 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    public function getSlug() :string
-    {
-        return (new Slugify())->slugify($this->username); 
-    }
+     /**
+     * permet de construire le slug de facon automatique
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initialise(){
+        if(empty($this->slug)){
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->username);
 
+        }
+    }
+    
     public function getChannels(): ?string
     {
         return $this->channels;

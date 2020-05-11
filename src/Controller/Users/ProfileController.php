@@ -3,9 +3,7 @@
 namespace App\Controller\Users;
 
 use App\Controller\BaseController;
-use App\Entity\User;
-use App\Entity\Users;
-use App\Form\UsersType;
+use App\Form\SettingProfilType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +32,10 @@ class ProfileController extends BaseController {
      */
     public function index(): Response {
 
+        $user = $this->getUser();
+        
         return $this->render('Users/base.html.twig', [
-            'user' => $this->getUser(),
+            'user' => $user,
         ]);
     }
 
@@ -45,8 +45,20 @@ class ProfileController extends BaseController {
      */
     public function setting(Request $request): Response {
         $user = $this->getUser();
+
+        $form = $this->createForm(SettingProfilType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash(
+                'success',
+                "Votre compte à ete mis à jour!!!!"
+            );
+        }
+
         return $this->render('Users/Settings/base.html.twig', [
-            'user' => $user
+            'settingForm' => $form->createView()
         ]);
     }
 

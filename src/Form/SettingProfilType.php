@@ -4,15 +4,13 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class SettingProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,25 +20,29 @@ class UserType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'username',
-                    'class' => 'form-control text-center text-black'
+                    'class' => 'form-control text-center text-black',
+                    'id' => 'nom'
                 ]
             ])
-            ->add('email', EmailType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Email',
-                    'class' => 'form-control text-center text-black'
-                ]
-            ])    
             ->add('channels', TextType::class, [
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Chaînes',
-                    'class' => 'form-control text-center text-black'
+                    'placeholder' => 'nom de la chaine',
+                    'class' => 'form-control text-center text-black',
+                    'id' => 'nomChaine'
                 ]
             ])
+            ->add('password', PasswordType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Mot de passe',
+                    'class' => 'form-control text-center text-black',
+                    'id' => 'mdp'
+                ]
+            ])
+            
         ;
     }
 
@@ -48,17 +50,6 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'translation_domain' => 'forms'
         ]);
-    }
-
-    private function getRoleChoices()
-    {
-        $choicesRole = User::DefaultRole;
-        foreach($choicesRole as $k => $v) {
-            $output[$v] = $k;
-        }
-        return $output;
-
     }
 }

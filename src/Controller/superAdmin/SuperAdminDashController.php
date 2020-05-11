@@ -2,37 +2,63 @@
 namespace App\Controller\superAdmin;
 
 use App\Controller\BaseController;
+use App\Form\SettingType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ *  @Route("/superadmin")
+ * @IsGranted("ROLE_SUPER_ADMIN")
+ */
 class SuperAdminDashController extends BaseController{
 
     /**
-     * @Route("/superadmin", name="superadmin.index")
+     * @Route("/", name="superadmin.index")
      */
     public function index() {
         
-        return $this->render('superAdmin/base.html.twig');
+        $user = $this->getUser();
+
+        return $this->render('superAdmin/base.html.twig', [
+            'user' => $user,
+        ]);
     }
 
     
     /**
-     * @Route("/superadmin/stats", name="superadmin.stats.show")
+     * @Route("/stats", name="superadmin.stats.show")
      */
     public function getStatistics() : Response {
 
         $statistique = file_get_contents(dirname(__DIR__). '/../monks/adminStatistics.json');
         $listStatistique = json_decode($statistique);
-        dump($listStatistique);
+
         return $this->responseApi([$listStatistique]);
     }
 
     /**
-     * @Route("/superadmin/setting", name="superadmin.setting.index", methods={"GET"})
+     * @Route("/setting/{id}", name="superadmin.setting.index")
      */
-    public function settings(): Response {
+    
+    public function settings(Request $request): Response {
+        $user = $this->getUser();
 
-        return $this->render('superAdmin/settings/base.html.twig');
+        $form = $this->createForm(SettingType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash(
+                'success',
+                "Votre compte à ete mis à jour!!!!"
+            );
+        }
+
+        return $this->render('superAdmin/settings/base.html.twig', [
+            'user' => $user,
+            'settingsForm' => $form->createView()
+        ]);
     }
 }

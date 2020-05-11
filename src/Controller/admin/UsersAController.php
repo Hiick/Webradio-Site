@@ -13,9 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface; 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/admin/users")
+ * @IsGranted("ROLE_ADMIN")
  */
 class UsersAController extends BaseController{
 
@@ -46,9 +48,6 @@ class UsersAController extends BaseController{
             'form' => $form->createView(),
         ]);
 
-        /*return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);*/
     }
 
     /**
@@ -56,12 +55,12 @@ class UsersAController extends BaseController{
      */
     public function new(Request $request): Response
     {
-       /* $user = new User();
+       $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$entityManager = $this->getDoctrine()->getManager();
+            
             $this->em->persist($user);
             $this->em->flush();
 
@@ -71,39 +70,9 @@ class UsersAController extends BaseController{
         return $this->render('admin/user/new/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
-        ]);*/
-        $content = $request->getContent();
-
-        if(!empty($content)) {
-
-            $params = json_decode($content, true);
-
-            $user = new User();
-
-           // $user->setAvatar($params['']);
-            $user->setUsername($params['username']);
-            $user->setEmail($params['email']);
-            $user->setChannels($params['nomchaine']);
-            $user->setRoles($params['role']);
-            $user->setStatus("Active");
-           
-            $this->em->persist($user);
-            $this->em->flush();
-
-        }
-
-        return $this->render('admin/user/new/new.html.twig');
-    }
-
-    /**
-     * @Route("/{id}", name="admin.users.show", methods={"GET"})
-     */
-    /*public function show(User $user): Response
-    {
-        return $this->render('admin/user/show.html.twig', [
-            'user' => $user,
         ]);
-    }*/
+        
+    }
 
     /**
      * @Route("/{id}/edit", name="admin.users.edit", methods={"GET","POST"})

@@ -13,9 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface; 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/superadmin/users")
+ * @IsGranted("ROLE_SUPER_ADMIN")
  */
 class UsersAdminController extends BaseController{
 
@@ -56,29 +58,12 @@ class UsersAdminController extends BaseController{
      */
     public function new(Request $request): Response
     {
-       /* $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            //$entityManager = $this->getDoctrine()->getManager();
-            $this->em->persist($user);
-            $this->em->flush();
-
-            return $this->redirectToRoute('superadmin.users.index');
-        }
-
-        return $this->render('superadmin/user/new/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);*/
+        $user = new User();
         $content = $request->getContent();
 
         if(!empty($content)) {
 
             $params = json_decode($content, true);
-
-            $user = new User();
 
             $user->setAvatar("<i class='fas fa-user-circle fa-2x text-dark-300'></i>");
             $user->setUsername($params['username']);

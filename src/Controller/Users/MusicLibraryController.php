@@ -8,14 +8,26 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
     /**
-     * @Route("/profile", name="profile.library.index")
+     * @Route("/profile/library", name="profile.library.index")
      * @IsGranted("ROLE_USER")
      */
 class MusicLibraryController extends BaseController {
 
+   
+
+    private $em;
+
+    public function __construct( EntityManagerInterface $em)
+    {
+        
+        $this->em = $em;
+    }
+
      /**
-     * @Route("/library", name="profile.library.index")
+     * @Route("/", name="profile.library.index")
      */
     public function index(Request $request): Response {
 
@@ -23,7 +35,7 @@ class MusicLibraryController extends BaseController {
     }
 
     /**
-     * @Route("/new", name="profile.library.new")
+     * @Route("/new", name="profile.library.new", )
      * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response

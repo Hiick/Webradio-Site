@@ -2,15 +2,15 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('profile.setting.index', {'id': user.id}) }}">
-        <div class="sidebar-brand-text mx-3">{{ user.username }}</div>
-        <i class="fas fa-fw far fa-edit"></i>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('profile.setting.index') }}">
+        <div class="sidebar-brand-text mx-2"> {{ app.user.username }}</div>
+        <i class="fas fa-fw far fa-edit" id="edit-profil"></i>
     </a>
 
     <!--Avatar-->
     <a class="nav-link d-flex flex-column align-items-center" href="#">
         <div class="nav-item">
-            <img class="rounded-circle logo-setting" src="../../assets/artist image.png"/>
+            <img class="rounded-circle logo-setting" src="../../assets/artist_image.png"/>
         </div>
     </a>
 
@@ -19,7 +19,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link d-flex align-items-center justify-content-center" href="{#{ path('profile.index', {'id': user.id}) }#}">
+        <a class="nav-link d-flex align-items-center justify-content-center" href="{{ path('profile.index') }}">
             <span>Dashboard</span>
         </a>
     </li>
@@ -31,7 +31,7 @@
     </li>
     <!-- Nav Item - radios -->
     <li class="nav-item active d-flex align-items-center justify-content-center">
-        <a class="nav-link d-flex align-items-center justify-content-center" href="{#{ path('profile.radios.index') }#}">
+        <a class="nav-link d-flex align-items-center justify-content-center" href="{{ path('radio.index') }}">
             <span>Radios</span>
         </a>
     </li>

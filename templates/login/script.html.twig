@@ -17,18 +17,17 @@
 <script>
 $('#login').click(function(e) {
 
-        let email = $('#email').val().trim();
-        let password = $('#password').val().trim();
+        let email = $('#email_login').val();
+        console.log(email);
 
-        const settings = {
-            "url": "/login",
+        /*const settings = {
+            "url": "/loginpage",
             "type": "POST",
             "headers": {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             "data": {
                 "email": email,
-                "password": password
             }
         };
 
@@ -38,6 +37,6 @@ $('#login').click(function(e) {
           console.log("success");
         } 
 
-    });
+    });*/
 });
 </script>

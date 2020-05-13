@@ -2,8 +2,8 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-5" href="{{ path('superadmin.setting.index') }}">
-        <div class="sidebar-brand-text mx-3">Administrateur</div>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center mt-5" href="{{ path('superadmin.setting.index', {'id': app.user.id}) }}">
+        <div class="sidebar-brand-text mx-2">Super-Administrateur</div>
     </a>
 
     <!-- Divider -->

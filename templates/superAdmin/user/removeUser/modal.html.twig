@@ -1,19 +1,18 @@
     <div class="modal fade" id="removeModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog remove">
         <div class="modal-content removeUser">
-            <div class="rounded-circle imgModal border border1">
+            <div class="rounded-circle imgModalimgModalRemove border border1">
             </div>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <div class="modal-body login-body mb-4">
                 <div class="row d-flex flex-column align-items-center justify-content-center">
-                    <div class="col-sm-6 d-flex flex-column align-items-center justify-content-center">
-                        <span class="mt-2 text-black d-lg-inline text-center">Êtes-vous sûr de vouloir
-                        supprimer cet utilisateur ?</span>
-                    </div>
+                    
+                    <p class="text-black d-lg-inline text-center">Êtes-vous sûr de vouloir</p>
+                    <p class="text-black d-lg-inline text-center">supprimer cet utilisateur ?</p>
                 </div>
             </div>
             <div class="modal-footer removeButton">
-                <button type="button" class="row col-6 oui d-flex justify-content-center"><a href="{{ path('superadmin.users.delete', {id: users.id}) }}">Oui</a></button>
+                <button type="button" class="row col-6 oui d-flex justify-content-center"><a href="{{ path('superadmin.user.delete', {id: user.id}) }}">Oui</a></button>
                 <div class="diviser-col"></div>
                 <button type="button" class="row col-6 non d-flex justify-content-center" data-dismiss="modal">Non</button>
             </div>

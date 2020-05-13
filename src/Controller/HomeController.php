@@ -12,6 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface; 
 
 
+    /**
+     * @Route("/")
+     */
 class HomeController extends BaseController {
 
     private $repository;
@@ -38,7 +41,7 @@ class HomeController extends BaseController {
         
         return $this->render('pages/home.html.twig', [
             'radios' => $radios,
-            'form'  => $form->createView(),
+            'radioform'  => $form->createView(),
         ]);
 
     }

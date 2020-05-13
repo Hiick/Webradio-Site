@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,14 +13,15 @@ use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity({"email", "username"}, message="Celui-ci est déjà pris")
+ * @UniqueEntity({"email"}, message="Celui-ci est déjà pris")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface, Serializable
 {
 
     const DefaultRole = [
-        'User' => 'USER',
-        'Admin' => 'ADMIN'
+        'ROLE_USER' => 'ROLE_USER',
+        'ROLE_ADMIN' => 'ROLE_ADMIN',
     ];
 
     /**
@@ -54,10 +56,10 @@ class User implements UserInterface, Serializable
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $roles;
+    private $role;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
 
@@ -66,11 +68,24 @@ class User implements UserInterface, Serializable
      */
     private $status;
 
-     /**
-     * @ORM\Column(type="datetime")
+    /**
+     * @ORM\Column(type="string", length=255)
      */
+    private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MusicLibrary", mappedBy="user", orphanRemoval=true)
+     */
+    private $music;
+
+    public function __construct()
+    {
+        $this->music = new ArrayCollection();
+    }
 
 
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -95,11 +110,19 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    public function getSlug() :string
-    {
-        return (new Slugify())->slugify($this->username); 
-    }
+     /**
+     * permet de construire le slug de facon automatique
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initialise(){
+        if(empty($this->slug)){
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->username);
 
+        }
+    }
+    
     public function getChannels(): ?string
     {
         return $this->channels;
@@ -136,9 +159,9 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    public function setRoles($roles): self
+    public function setRole($role): self
     {
-        $this->roles = $roles;
+        $this->role = $role;
 
         return $this;
     }
@@ -152,27 +175,31 @@ class User implements UserInterface, Serializable
     }
 
     /**
-     * Returns the roles granted to the user.
+     * Returns the role granted to the user.
      *
      *     public function getRoles()
      *     {
      *         return ['ROLE_USER'];
      *     }
      *
-     * Alternatively, the roles might be stored on a ``roles`` property,
+     * Alternatively, the role might be stored on a ``role`` property,
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return string The user roles
+     * @return string The user role
      */
     public function getRoles()
     {
-        return $this->roles;
+        return array($this->role);
     }
 
     public function getDefaultRole(): string
     {
-        return self::DefaultRole[$this->roles];
+        return self::DefaultRole[$this->role];
+    }
+
+    public function getRole(){
+        return $this->role;
     }
     
 
@@ -206,7 +233,7 @@ class User implements UserInterface, Serializable
      *
      * @return string The username
      */
-    public function getUsername(): ?string
+    public function getUsername()
     {
         return $this->username;
     }
@@ -243,6 +270,37 @@ class User implements UserInterface, Serializable
             $this->password
         ) = unserialize($serialized, ['allowed_classes' => false]);
 
+    }
+
+    /**
+     * @return Collection|MusicLibrary[]
+     */
+    public function getMusic(): Collection
+    {
+        return $this->music;
+    }
+
+    public function addMusic(MusicLibrary $music): self
+    {
+        if (!$this->music->contains($music)) {
+            $this->music[] = $music;
+            $music->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusic(MusicLibrary $music): self
+    {
+        if ($this->music->contains($music)) {
+            $this->music->removeElement($music);
+            // set the owning side to null (unless already changed)
+            if ($music->getUser() === $this) {
+                $music->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
    

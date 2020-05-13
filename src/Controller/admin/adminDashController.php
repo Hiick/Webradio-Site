@@ -2,23 +2,48 @@
 namespace App\Controller\admin;
 
 use App\Controller\BaseController;
+use App\Form\SettingProfilType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-class adminDashController extends BaseController{
 
     /**
-     * @Route("/admin", name="admin.index")
+     * @Route("/admin")
+     * @IsGranted("ROLE_ADMIN")
+     */
+class AdminDashController extends BaseController{
+
+    private $repository;
+
+    private $em;
+
+    public function __construct(UserRepository $repository, EntityManagerInterface $em)
+    {
+        $this->repository = $repository;
+        $this->em = $em;
+    }
+    
+    /**
+     * @Route("/", name="admin.index")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index() {
         
-        return $this->render('admin/base.html.twig');
+        $user = $this->getUser();
+
+        return $this->render('admin/base.html.twig', [
+            'user' => $user,
+        ]);
     }
 
     
     /**
-     * @Route("/admin/stats", name="admin.stats.show")
+     * @Route("/stats", name="admin.stats.show")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function getStatistics() : Response {
 
@@ -29,10 +54,26 @@ class adminDashController extends BaseController{
     }
 
     /**
-     * @Route("/admin/setting", name="admin.setting.index", methods={"GET"})
+     * @Route("/admin/setting/{id}", name="admin.setting.index")
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function settings(): Response {
+    public function settings(Request $request): Response {
+        $user = $this->getUser();
 
-        return $this->render('admin/settings/base.html.twig');
+        $form = $this->createForm(SettingProfilType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash(
+                'success',
+                "Votre compte à ete mis à jour!!!!"
+            );
+        }
+
+        return $this->render('admin/settings/base.html.twig', [
+            'user' => $user,
+            'settingsForm' => $form->createView()
+        ]);
     }
 }

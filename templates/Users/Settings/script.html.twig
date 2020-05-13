@@ -1,18 +1,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Core plugin JavaScript-->
-<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 
 <!-- Core plugin JavaScript-->
-<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="../../js/sb-admin-2.min.js"></script>
+<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+<script src="{{ asset('js/mainJs/index.js') }}"></script>
 <script>
 
 $(document).ready(function() {
     
-     $.ajax({
+     /*$.ajax({
     method: "GET", 
     url: "", 
     async: true,
@@ -21,6 +28,48 @@ $(document).ready(function() {
         
     }
 
+    });*/
+
+    // Config Firebase (Ne pas oublié de le mettre dans le .env
+
+    
+    let firebaseConfig = {
+        apiKey: "AIzaSyAhoKFp3X1BremGeZ_aeNoFXd715vhQS4U",
+        authDomain: "webradio-stream.firebaseapp.com",
+        databaseURL: "https://webradio-stream.firebaseio.com",
+        projectId: "webradio-stream",
+        storageBucket: "webradio-stream.appspot.com"
+    };
+
+    // On initialise l'appel à Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // On détecte le changement de fichier
+    $('#cameraInput').on('change', function() {
+        // On récupère le nouveau fichier
+        let selectedFile = event.target.files[0];
+
+       
+        let filename = $('#cameraInput').val().replace(/C:\\fakepath\\/i, '');
+        let storageRef = firebase.storage().ref('/User/' + filename);
+
+        // On envoi le fichier à Firebase
+        let upload = storageRef.put(selectedFile);
+
+        // Le traitement Firebase se fait ici
+        upload.on('state_changed', function(snapshot) {
+
+        }, function(error) {
+            // Si Firebase renvoi une error on l'a met ici
+            console.log(error)
+        }, function() {
+            // On récupère l'URL téléchargeable
+            let downloadUrl = upload.snapshot.downloadURL;
+            // On l'affiche
+            console.log(downloadUrl);
+            // On remplace l'URL de l'image par la nouvelle
+            $('#profil').attr('src', downloadUrl);
+        });
     });
 });
 </script>

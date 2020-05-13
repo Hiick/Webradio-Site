@@ -13,9 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface; 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/superadmin/users")
+ * @IsGranted("ROLE_SUPER_ADMIN")
  */
 class UsersAdminController extends BaseController{
 
@@ -57,21 +59,25 @@ class UsersAdminController extends BaseController{
     public function new(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        $content = $request->getContent();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+        if(!empty($content)) {
 
-            return $this->redirectToRoute('superadmin.users.index');
+            $params = json_decode($content, true);
+
+            $user->setAvatar("<i class='fas fa-user-circle fa-2x text-dark-300'></i>");
+            $user->setUsername($params['username']);
+            $user->setEmail($params['email']);
+            $user->setChannels($params['nomchaine']);
+            $user->setRoles($params['role']);
+            $user->setStatus("Active");
+           
+            $this->em->persist($user);
+            $this->em->flush();
+
         }
 
-        return $this->render('superadmin/user/new/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('superadmin/user/new/new.html.twig');
     }
 
     /**

@@ -15,9 +15,14 @@ body{
     text-align: justify !important;
     letter-spacing: normal !important;
 }
-i.fas.fa-fw.far.fa-edit {
+#edit-profil {
     font-weight: 100;
     color: rgba(255, 255, 255, 0.534);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    cursor: pointer;
+    transform: none !important;
 }
 
 .sidebar .nav-item.active .nav-link {font-weight: 200 !important;}
@@ -85,11 +90,13 @@ div.rounded-circle.avatar{
 }
 #bouton-retour{background-color: #EF0051; color: #fff; padding: 0; width: 100px; border:none !important;}
 #text-titre{transform: translate(10px, 10px);}
+
 #bouton-ajout { color: #fff; 
     background-color:#EF0051; 
     text-align: center;
     margin-bottom: 1rem;
     border-radius: 0.4rem;
+    padding: 0.3rem;
     }
 .retour {
     width: 140px !important;
@@ -114,6 +121,7 @@ div.rounded-circle.avatar{
 }
 .avatar i.fa-3x.far.fa-edit{
     color: #EF0051;
+    cursor: pointer;
    
 }
 
@@ -165,8 +173,25 @@ div#col-text{
     width: 100%;
 }
 
-.modal-content.saveUser, .modal-content.removeUser {
+.modal-content.saveUser {
     border-radius: 20% !important;
+}
+
+.modal-content.removeUser{
+
+    background-color: white !important;
+    border-radius: 10% !important;
+}
+
+.rounded-circle.imgModalRemove {
+    height: 140px;
+    line-height: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 150px;
+    bottom: 50px;
+    background-color: #fff;
 }
 
 span.mt-2.text-black.d-lg-inline.text-center{
@@ -183,29 +208,30 @@ padding-right: 0px !important;
 /*
 *modal button
 */
-.close { position: absolute; right: 10px;}
+.close { position: absolute; right: 30px;top: 10px;}
 .oui{ color: #1DC88A; border: none; background-color: inherit; text-align: center; font-size: 1.5rem;}
 .non{ color: #C81D1D; border: none; background-color: inherit; text-align: center; font-size: 1.5rem;}
 .diviser-col{
     border-right: 1px solid #dddddd;
-    line-height: 0px;
+    line-height: 2;
     font-weight: 100;
     height: 70px;
 }
-.modal-footer.addUser, .modal-footer.removeButton, .modal-footer.bannirButton{
+.modal-footer.addUser{
     padding: 0px;
     position: relative;
     top: 30px;
 }
 
+.modal-footer.removeButton, .modal-footer.bannirButton{
+    margin: 0px !important;
+    padding: 0px !important;
+    border-top: 1px solid #e3e6f0 !important;
+}
+.modal-dialog.remove {
+    background-color: initial;
+}
 
-
-/*.conteneur, .row.recherche, .row.toutesRadio {
-    width: 100%;
-}*/
-/*
-*je me suis arrete la 
-*/
 
 .passwordLost .rounded-circle.img{
     width: 144.59px;
@@ -214,16 +240,14 @@ padding-right: 0px !important;
     background-color: #fff;
 }
 .bouton-password{
-    position: absolute;
-    top:-2px;
-    left: 171px;
+    position: relative;
     color:white;
-    height:45px;
-    width: 45px;
+    height:60px;
+    width: 60px;
     background: #EF0051;
     background-position:center;
     background-size:20px;
-    border-radius: 25px;
+    border-radius: 50px;
     padding: 15px;
     border: none;
 }
@@ -232,9 +256,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
     transition: transform 0.3s;}
 .fas.fa-arrow-right{
     position: relative;
-    font-size: 30px;
-    top: -7px;
-    left: -5px;
+    font-size: 1.9rem;
 }
 .password-input{
     border-radius: .95rem !important; 
@@ -255,12 +277,12 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 #aside-nav{width: 100%;}
 
 
-.form-group.champ {margin-bottom: 1.4rem;}
+.form-group.champ {margin-bottom: 1rem;}
 .champ .form-control {border-radius: .95rem !important;}
 
 .form-group.champ input.form-control {text-align: center !important;}
 .login-body{transform: translate(0%, -20%)}
-.passwordLost-body{ position: relative; transform: translate(0%, -50%)}
+.passwordLost-body{ position: relative; bottom: 65px;}
 
 .setting{width: 90vh; margin-bottom: 1.94rem;}
 .setting .form-control{border-radius: .95rem !important; }
@@ -292,14 +314,14 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 #player-container #play-pause {
     cursor: pointer;
     text-indent: -999999px;
-    height:40px;
-    width: 40px;
+    height:70px;
+    width: 70px;
     background: #EF0051;
     background-repeat:no-repeat;
     background-image: url('../assets/play.png');
     background-position:center;
-    background-size:15px;
-    border-radius: 25px;
+    background-size:17px;
+    border-radius: 50px;
     padding: 20px;
     box-shadow: 0 6px 10px 0 #0000001a,0 1px 18px 0 #0000001a, 0 3px 5px -1px #0003;
     transition: transform 0.3s;
@@ -394,6 +416,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         position: absolute;
         top: 90px;
         right: 90px;
+        cursor: pointer;
     }
     .logo-addUser, .logo-settingsAdmin, .logo-editchannel, .logo-notifications{
         position: relative;
@@ -403,7 +426,10 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         padding:20px;
         width: 320px;
     }
-
+    .modal-dialog.passwordLost {
+        width: 300px !important;
+        height: 210px !important;
+    }
 
  }
  @media (max-width:575.98px){
@@ -414,6 +440,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         position: absolute;
         top: 90px;
         right: 90px;
+        cursor: pointer;
     }
 
    
@@ -461,6 +488,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         position: absolute;
         top: 90px;
         right: 90px;
+        cursor: pointer;
     }
 
  }
@@ -490,7 +518,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
         position: relative;
         left: 20px
     }
-    .avatar i.fa-3x.far.fa-edit{position: absolute;top: 90px;right: 90px;}
+    .avatar i.fa-3x.far.fa-edit{position: absolute;top: 90px;right: 90px; cursor: pointer;}
 
  }
 
@@ -539,7 +567,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
  }
 
  /*input select*/
- select#user_roles.form-control{
+ select#user_roles.form-control, select#sel1.form-control{
     text-align-last: center !important;
     padding-right: 2px;
 }
@@ -564,10 +592,14 @@ a.far.fa-trash-alt.fa-2x :hover {
 
 .modal-dialog {
     padding:20px;
-    width: 320px;
+    width: 350px;
     border-radius: 16px;
     background-color: #fff;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.014),0 1px 2px 0 rgba(255, 255, 255, 0.04),0 2px 1px -1px rgba(247, 247, 247, 0),0 1px 6px 0 rgba(255, 255, 255, 0);
+}
+.modal-dialog.passwordLost {
+    width: 300px !important;
+    height: 210px !important;
 }
 
 .modal {
@@ -585,15 +617,28 @@ a.far.fa-trash-alt.fa-2x :hover {
     bottom: 70px;
     background-color: #fff;
 }
-.imgModal{
+.imgModal, .imgModalRemove{
     background-repeat:no-repeat;
     background-image: url('../assets/Groupe 8.png');
     background-position:center;
     background-size: 13vh;   
 }
+.check{
+    background-repeat:no-repeat;
+    background-image: url('../assets/Image 42.png');
+    background-position:center; 
+    height: 178px;
+    width: 190px;
+    border-radius: 50%
+}
+.check-body{
+    position: relative;
+    bottom: 1.95rem;
+}
 
 .modal-content {
     border: none;
+    background-color: initial !important;
 }
 .jumbotron{
     background-color: inherit !important;
@@ -657,7 +702,7 @@ a.calendar__day:hover {
     display: block;
     width: 55px;
     height: 55px;
-    line-height: 55px;
+    line-height: 57px;
     text-align: center;
     color: #fff;
     font-size: 50px;
@@ -692,3 +737,62 @@ a.calendar__day:hover {
     width: 200px !important;
 }
 
+.alert{
+    padding: 0.7rem 1.2rem !important;
+    margin-bottom: 0.7rem !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
+input[type="file"]{
+display: none;
+}
+
+.page-link{
+    color: #EF0051;
+    background-color: white;
+}
+.page-item.active .page-link{
+    color: #fff;
+    background-color: #EF0051;
+    border-color:  #EF0051;
+
+}
+
+.titre-setting{
+    position: relative;
+    left: 75px
+}
+.image-upload > input
+{
+    display: none;
+}
+
+.image-upload img
+{
+    width: 200px;
+    cursor: pointer;
+}
+
+.image-upload {
+    position: relative;
+    text-align: center;
+}
+
+.fa-edit {
+    position: absolute;
+    cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+label#bouton-ajout{
+    position: relative;
+    top: 20px;
+}
+#titreBibliotheque{
+    position: relative;
+    top: 30px
+}

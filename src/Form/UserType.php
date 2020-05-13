@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,15 +31,6 @@ class UserType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Email',
                     'class' => 'form-control text-center text-black'
-                ]
-            ])
-            ->add('roles', ChoiceType::class, [
-                'required' => false,
-                'label' => false,
-                'choices' => $this->getRoleChoices(),
-                'attr' => [
-                    'class' => 'form-control',
-                    'id'    => 'sel1',
                 ]
             ])    
             ->add('channels', TextType::class, [

@@ -150,10 +150,6 @@
     width: 100%;
     max-width: 320px;
   }
-  ul li {
-    margin: 16px 0;
-    position: relative;
-  }
   
   html {
     box-sizing: border-box;

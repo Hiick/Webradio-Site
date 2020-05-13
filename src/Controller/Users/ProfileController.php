@@ -3,14 +3,13 @@
 namespace App\Controller\Users;
 
 use App\Controller\BaseController;
-use App\Entity\User;
-use App\Entity\Users;
-use App\Form\UsersType;
+use App\Form\SettingProfilType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/profile")
@@ -27,22 +26,40 @@ class ProfileController extends BaseController {
         $this->em = $em;
     }
     /**
-     * @Route("/{username}", name="profile.index", methods={"GET","POST"})
+     * permet à l'utilisateur de voir son compte
+     * @Route("/", name="profile.index", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
-    public function index(Request $request, User $user): Response {
+    public function index(): Response {
 
-        $content = $request->getContent();
-
-        if(!empty($content)) {
-
-            $params = json_decode($content, true);
-            $usernane = $params['usernane'];
-            $user = $this->repository->findTheUser($usernane);
-        }
+        $user = $this->getUser();
         
-         
-        return $this->render('Users/base.html.twig', compact('user'));
+        return $this->render('Users/base.html.twig', [
+            'user' => $user,
+        ]);
+    }
 
+    /**
+     * @Route("/profile/setting", name="profile.setting.index")
+     * @IsGranted("ROLE_USER")
+     */
+    public function setting(Request $request): Response {
+        $user = $this->getUser();
+
+        $form = $this->createForm(SettingProfilType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash(
+                'success',
+                "Votre compte à ete mis à jour!!!!"
+            );
+        }
+
+        return $this->render('Users/Settings/base.html.twig', [
+            'settingForm' => $form->createView()
+        ]);
     }
 
 

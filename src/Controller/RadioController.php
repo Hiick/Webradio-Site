@@ -3,36 +3,47 @@
 namespace App\Controller;
 
 use App\Entity\Radio;
-use App\Form\RadioType;
 use App\Repository\RadioRepository;
 use App\Controller\BaseController;
+use App\Entity\RadioSearch;
+use App\Form\RadioSearchType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface; 
 
 /**
- * @Route("/radio")
+ * @Route("/profile")
  */
 class RadioController extends BaseController
 {
-    /**
-     * @Route("/", name="radio.index", methods={"GET"})
-     */
-    public function index(RadioRepository $radioRepository): Response
+    private $repository;
+
+    private $em;
+
+    public function __construct(RadioRepository $repository, EntityManagerInterface $em)
     {
-        return $this->render('radio/index.html.twig', [
-            'radios' => $radioRepository->findAll(),
+        $this->repository = $repository;
+        $this->em = $em;
+    }
+    
+    /**
+     * @Route("/radio", name="radio.index", methods={"GET"})
+     */
+    public function index(PaginatorInterface $paginator, Request $request): Response
+    {
+        $search = new RadioSearch();
+        $form = $this->createForm(RadioSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $radios = $paginator->paginate($this->repository->findAllVisibleQuery($search),
+        $request->query->getInt('page', 1), 5);
+        
+        return $this->render('Users/Radios/base.html.twig', [
+            'radios' => $radios,
+            'radioform'  => $form->createView(),
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="radio.show", methods={"GET"})
-     */
-    public function show(Radio $radio): Response
-    {
-        return $this->render('radio/show.html.twig', [
-            'radio' => $radio,
-        ]);
-    }
 }

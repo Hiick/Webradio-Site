@@ -29,7 +29,7 @@
             "username": "MikeSylv",
             "avatar": "<img class='rounded-circle avatar-miky' src='../../assets/artist image.png'/>",
             "nom_chaine" :"MikySound",
-            "role":"ROLE_ADMIN",
+            "role":"ROLE_USER",
             "status": "Active",
             "password": "123456"
 
@@ -63,7 +63,7 @@
             "username": "Jean",
             "avatar": "<i class='fas fa-user-circle fa-2x text-dark-300'></i>",
             "nom_chaine" :"JeanSound",
-            "role":"ROLE_USER",
+            "role":"ROLE_ADMIN",
             "status": "Active",
             "password": "123456"
 

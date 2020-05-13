@@ -578,6 +578,11 @@ a.fa-2x.far.fa-edit, a.far.fa-trash-alt.fa-2x{
     color: black;
     text-decoration: none;
     text-decoration-line: none !important;
+    position: relative;
+    cursor: pointer;
+    top: 0px !important;
+    left: 0px !important;
+    transform: none !important;
 }
 
 a.fa-2x.far.fa-edit :hover{

@@ -58,14 +58,14 @@
                                                 <td>{{ user.role }}</td>
                                                 <td>{{ user.status }}</td>
                                                 <td>
-                                                    {% if user.roles == "ROLE_ADMIN" %}
+                                                    {% if user.role == "ROLE_ADMIN" %}
                                                     <a href='{{ path('superadmin.users.edit', {'id': user.id}) }}' class='fa-2x far fa-edit' id=''></a>
                                                 </td>
                                                 {% else %}
-                                                    <form method="post" action="{{ path('superadmin.channel.delete', {'id': user.id}) }}" style="display: inline-block">
+                                                    <form method="post" action="{{ path('superadmin.user.bannir', {'id': user.id}) }}" style="display: inline-block">
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                                                        <a  href='#removeModal' data-toggle='modal' data-dismiss='modal' class='btn text-danger' class='far fa-trash-alt fa-2x'></a>
+                                                        <a  href='#bannirModal' data-toggle='modal' data-dismiss='modal'  class='far fa-trash-alt fa-2x'></a>
                                                     </form>
                                                         <a href='{{ path('superadmin.users.edit', {id: user.id}) }}' style="display: inline-block" class='fa-2x far fa-edit'></a>
                                                 </td>

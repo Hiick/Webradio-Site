@@ -69,7 +69,7 @@ class ChannelAdminController extends BaseController{
     }
 
         /**
-     * @Route("/{id}", name="superadmin.channel.delete", methods={"DELETE"})
+     * @Route("/{id}", name="superadmin.channel.bannir", methods={"DELETE"})
      */
     public function delete(Request $request, Channels $channels): Response
     {

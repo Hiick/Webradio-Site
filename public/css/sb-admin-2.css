@@ -91,7 +91,8 @@ div.rounded-circle.avatar{
 #bouton-retour{background-color: #EF0051; color: #fff; padding: 0; width: 100px; border:none !important;}
 #text-titre{transform: translate(10px, 10px);}
 
-#bouton-ajout { color: #fff; 
+.bouton-ajout { 
+    color: #fff; 
     background-color:#EF0051; 
     text-align: center;
     margin-bottom: 1rem;
@@ -788,7 +789,7 @@ display: none;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-label#bouton-ajout{
+label.bouton-ajout{
     position: relative;
     top: 20px;
 }

@@ -54,8 +54,16 @@
                                                 <td>{{ channel.nomChaine }}</td>
                                                 <td>{{ channel.proprietaire }}</td>
                                                 <td>{{ channel.status }}</td>
-                                                <td><a href='#removeModal' data-toggle='modal' data-dismiss='modal' class='far fa-trash-alt fa-2x' id=''></a><a href='{{ path('admin.channel.edit', {id: channel.id}) }}' class='fa-2x far fa-edit' id=''></a></td>
+                                                <td><form method="post" action="{{ path('admin.channel.bannir', {'id': channel.id}) }}" style="display: inline-block" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ channel.id) }}">
+                                                         <a  href='#bannirModal' data-toggle='modal' data-dismiss='modal'  class='far fa-trash-alt fa-2x'></a>
+                                                    </form>
+                                                    <a href='{{ path('admin.channel.edit', {id: channel.id}) }}' class='fa-2x far fa-edit' id=''></a>
+                                                    
+                                                </td>
                                             </tr>
+                                            {% include 'admin/channel/removeChannel/modal.html.twig' %}
                                          {% endfor %}
                                     </tbody>
                                     </table>

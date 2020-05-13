@@ -71,9 +71,9 @@ class ChannelAController extends BaseController{
     }
 
         /**
-     * @Route("/{id}", name="admin.channel.delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin.channel.bannir", methods={"DELETE"})
      */
-    public function delete(Request $request, Channels $channels): Response
+    public function bannir(Request $request, Channels $channels): Response
     {
         if ($this->isCsrfTokenValid('delete'.$channels->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

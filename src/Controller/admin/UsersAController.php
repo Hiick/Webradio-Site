@@ -95,9 +95,9 @@ class UsersAController extends BaseController{
     }
 
     /**
-     * @Route("/{id}", name="admin.user.delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin.user.bannir", methods={"DELETE"})
      */
-    public function delete(Request $request, User $user): Response
+    public function bannir(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

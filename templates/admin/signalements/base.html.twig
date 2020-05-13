@@ -54,8 +54,15 @@
                                                 <td>{{ Signalement.nomChaine }}</td>
                                                 <td>{{ Signalement.nombreSignal }}</td>
                                                 <td><a href='{{ path('admin.Signalements.show', {slug: Signalement.slug, id: Signalement.id}) }}' >{{ Signalement.listSignal }}</a></td>
-                                                <td><a href='#bannirModal' data-toggle='modal' data-dismiss='modal' class='text-danger'>{{ Signalement.management }}</a></td>
+                                                <td>
+                                                    <form method="post" action="{{ path('admin.bannir', {'id': Signalement.id}) }}" style="display: inline-block">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ Signalement.id) }}">
+                                                        <a href='#bannirModal' data-toggle='modal' data-dismiss='modal' class='btn text-danger'>{{ Signalement.management }}</a>
+                                                    </form>
+                                                </td>
                                             </tr>
+                                            {% include 'admin/signalements/bannir.html.twig' %}
                                          {% endfor %}
                                     </tbody>
                                     </table>
@@ -92,7 +99,7 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-{#% include 'admin/Users/RemoveUser/modal.html.twig' %#}
+
 
 </body>
 

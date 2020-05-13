@@ -8,12 +8,12 @@
                 <div class="row d-flex flex-column align-items-center justify-content-center">
                     <div class="col-sm-6 d-flex flex-column align-items-center justify-content-center">
                         <span class="mt-2 text-black d-lg-inline text-center">Êtes-vous sûr de vouloir
-                        bannir cet utilisateur ?</span>
+                        bannir cette chaine ?</span>
                     </div>
                 </div>
             </div>
             <div class="modal-footer bannirButton">
-                <button type="button" class="row col-6 oui d-flex justify-content-center"><a href="{{ path('admin.user.bannir', {id: user.id}) }}">Oui</a></button>
+                <button type="button" class="row col-6 oui d-flex justify-content-center"><a href="{{ path('admin.bannir', {id: Signalement.id}) }}">Oui</a></button>
                 <div class="diviser-col"></div>
                 <button type="button" class="row col-6 non d-flex justify-content-center" data-dismiss="modal">Non</button>
             </div>

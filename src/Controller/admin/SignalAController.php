@@ -81,4 +81,18 @@ class SignalAController extends BaseController{
 
         return $this->render('admin/Signalements/blankPage.html.twig');
     }
+
+   /**
+     * @Route("/signal/{id}", name="admin.bannir", methods={"DELETE"})
+     */
+    public function bannir(Request $request,  Signalements $signal): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$signal->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($signal);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('admin.Signalements.index');
+    }
 }

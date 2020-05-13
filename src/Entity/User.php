@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -55,7 +56,7 @@ class User implements UserInterface, Serializable
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $roles;
+    private $role;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -71,6 +72,16 @@ class User implements UserInterface, Serializable
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MusicLibrary", mappedBy="user", orphanRemoval=true)
+     */
+    private $music;
+
+    public function __construct()
+    {
+        $this->music = new ArrayCollection();
+    }
 
 
 
@@ -148,9 +159,9 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    public function setRoles($roles): self
+    public function setRole($role): self
     {
-        $this->roles = $roles;
+        $this->role = $role;
 
         return $this;
     }
@@ -164,27 +175,31 @@ class User implements UserInterface, Serializable
     }
 
     /**
-     * Returns the roles granted to the user.
+     * Returns the role granted to the user.
      *
      *     public function getRoles()
      *     {
      *         return ['ROLE_USER'];
      *     }
      *
-     * Alternatively, the roles might be stored on a ``roles`` property,
+     * Alternatively, the role might be stored on a ``role`` property,
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return string The user roles
+     * @return string The user role
      */
     public function getRoles()
     {
-        return array($this->roles);
+        return array($this->role);
     }
 
     public function getDefaultRole(): string
     {
-        return self::DefaultRole[$this->roles];
+        return self::DefaultRole[$this->role];
+    }
+
+    public function getRole(){
+        return $this->role;
     }
     
 
@@ -255,6 +270,37 @@ class User implements UserInterface, Serializable
             $this->password
         ) = unserialize($serialized, ['allowed_classes' => false]);
 
+    }
+
+    /**
+     * @return Collection|MusicLibrary[]
+     */
+    public function getMusic(): Collection
+    {
+        return $this->music;
+    }
+
+    public function addMusic(MusicLibrary $music): self
+    {
+        if (!$this->music->contains($music)) {
+            $this->music[] = $music;
+            $music->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusic(MusicLibrary $music): self
+    {
+        if ($this->music->contains($music)) {
+            $this->music->removeElement($music);
+            // set the owning side to null (unless already changed)
+            if ($music->getUser() === $this) {
+                $music->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
    

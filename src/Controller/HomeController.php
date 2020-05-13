@@ -41,7 +41,7 @@ class HomeController extends BaseController {
         
         return $this->render('pages/home.html.twig', [
             'radios' => $radios,
-            'form'  => $form->createView(),
+            'radioform'  => $form->createView(),
         ]);
 
     }

@@ -35,7 +35,7 @@ class UsersFixtures extends Fixture
             $user->setEmail($result['email']);
             $user->setUsername($result['username']);
             $user->setChannels($result['nom_chaine']);
-            $user->setRoles($result['role']);
+            $user->setRole($result['role']);
             $user->setStatus($result['status']);
             $hash = $this->encoder->encodePassword($user, $result['password']);
             $user->setPassword($hash);

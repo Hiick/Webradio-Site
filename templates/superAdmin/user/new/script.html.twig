@@ -17,26 +17,41 @@ console.log("new user")
 $(document).ready(function() {
      
 
-    $('.fa-edit').click(function(e){
-
-        var input=document.createElement('input');
-        input.type="file";
-
-        setTimeout(function(){
-        $(input).click();
-        },200);
-
-    });
-
+    
     $('#saveUser').click(function(e){
         e.preventDefault();
     
         let username = $('#username').val().trim();
         let email = $('#email').val().trim();
-        let nomchaine = $('#nomchaine').val().trim();
         let role = $('#sel1').val().trim();
 
-        console.log(username+" "+email+" "+nomchaine+" "+role);
+        $(".erreur").remove();
+
+    if (username.length < 3) 
+    {
+        $('#username').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Le nom d\'utilisateur doit être de 3 caractères minimum et ne peux pas contenir d\'espace</div>');
+
+        //if(username.split('')[0])   
+        
+    }else if(username.length > 10)
+    {
+        $('#username').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Le nom d\'utilisateur doit être  moins de 10 caractères</div>');
+    
+    }
+    if (email.length < 1)
+    {
+       $('#email').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Ce champ est obligatoire</div>'); 
+    
+    }else{
+        let regEx = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
+        let validEmail = regEx.test(email);
+
+        if(!validEmail)
+        {
+            $('#email').after('<span class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Merci de rentrer une adresse email valide</span>');
+        }
+    }
+
 
         $.ajax({
             url: '/superadmin/users/new',
@@ -44,7 +59,6 @@ $(document).ready(function() {
             data: JSON.stringify({
                 "username": username,
                 "email": email,
-                "nomchaine": nomchaine,
                 "role": role,
             }),
             async: true, 

@@ -55,6 +55,7 @@ class UsersAdminController extends BaseController{
 
     /**
      * @Route("/new", name="superadmin.users.new", methods={"GET","POST"})
+     * @IsGranted("ROLE_SUPER_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -68,8 +69,7 @@ class UsersAdminController extends BaseController{
             $user->setAvatar("<i class='fas fa-user-circle fa-2x text-dark-300'></i>");
             $user->setUsername($params['username']);
             $user->setEmail($params['email']);
-            $user->setChannels($params['nomchaine']);
-            $user->setRoles($params['role']);
+            $user->setRole($params['role']);
             $user->setStatus("Active");
            
             $this->em->persist($user);
@@ -80,15 +80,7 @@ class UsersAdminController extends BaseController{
         return $this->render('superadmin/user/new/new.html.twig');
     }
 
-    /**
-     * @Route("/{id}", name="superadmin.users.show", methods={"GET"})
-     */
-    /*public function show(User $user): Response
-    {
-        return $this->render('superadmin/user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }*/
+    
 
     /**
      * @Route("/{id}/edit", name="superadmin.users.edit", methods={"GET","POST"})
@@ -111,15 +103,16 @@ class UsersAdminController extends BaseController{
     }
 
     /**
-     * @Route("/{id}", name="superadmin.user.bannir")
+     * @Route("/{id}", name="superadmin.user.bannir", methods={"GET","POST"})
      */
     public function bannir(Request $request, User $user): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
+    {   
+        
+         $user->getId();
+         $user->setStatus("Banni");
+         $this->em->persist($user);
+         $this->em->flush();
+        
 
         return $this->redirectToRoute('superadmin.users.index');
     }

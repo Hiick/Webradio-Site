@@ -55,22 +55,25 @@ class UsersAController extends BaseController{
      */
     public function new(Request $request): Response
     {
-       $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        $user = new User();
+        $content = $request->getContent();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            
+        if(!empty($content)) {
+
+            $params = json_decode($content, true);
+
+            $user->setAvatar("<i class='fas fa-user-circle fa-2x text-dark-300'></i>");
+            $user->setUsername($params['username']);
+            $user->setEmail($params['email']);
+            $user->setRole($params['role']);
+            $user->setStatus("Active");
+           
             $this->em->persist($user);
             $this->em->flush();
 
-            return $this->redirectToRoute('admin.users.index');
         }
 
-        return $this->render('admin/user/new/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('admin/user/new/new.html.twig');
         
     }
 
@@ -95,15 +98,14 @@ class UsersAController extends BaseController{
     }
 
     /**
-     * @Route("/{id}", name="admin.user.bannir", methods={"DELETE"})
+     * @Route("/{id}", name="admin.user.bannir", methods={"GET","POST"})
      */
-    public function bannir(Request $request, User $user): Response
+    public function bannir(User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
+            $user->getId();
+            $user->setStatus("Banni");
+            $this->em->persist($user);
+            $this->em->flush();
 
         return $this->redirectToRoute('admin.users.index');
     }

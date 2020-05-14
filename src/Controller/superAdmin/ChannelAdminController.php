@@ -69,15 +69,14 @@ class ChannelAdminController extends BaseController{
     }
 
         /**
-     * @Route("/{id}", name="superadmin.channel.bannir", methods={"DELETE"})
+     * @Route("/{id}", name="superadmin.channel.bannir", methods={"GET","POST"})
      */
-    public function delete(Request $request, Channels $channels): Response
+    public function bannir(Channels $channels): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$channels->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($channels);
-            $entityManager->flush();
-        }
+            $channels->getId();
+            $channels->setStatus("Banni");
+            $this->em->persist($channels);
+            $this->em->flush();
 
         return $this->redirectToRoute('superadmin.channel.index');
     }

@@ -84,16 +84,10 @@ class SignalAdminController extends BaseController{
     
 
     /**
-     * @Route("/signal/{id}", name="superadmin.bannir.delete", methods={"DELETE"})
+     * @Route("/signal/{id}", name="superadmin.bannir.delete", methods={"GET"})
      */
-    public function bannir(Request $request,  Signalements $signal): Response
+    public function bannir(): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$signal->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($signal);
-            $entityManager->flush();
-        }
-
         return $this->redirectToRoute('superadmin.Signalements.index');
     }
 }

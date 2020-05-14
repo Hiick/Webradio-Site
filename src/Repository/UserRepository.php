@@ -74,6 +74,16 @@ class UserRepository extends ServiceEntityRepository
 
     }
 
+    public function findUserById($id) 
+    {    
+        return $this->findVisibleQuery()
+        ->andWhere('u.id = :id')
+        ->setParameter(':id', $id)
+        ->getQuery()
+        ->getResult();
+
+    }
+
     private function findVisibleQuery() :ORMQueryBuilder
     {
         return $this->createQueryBuilder('u');       

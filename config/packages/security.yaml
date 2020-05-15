@@ -14,7 +14,7 @@ security:
             anonymous: lazy
             
             form_login:
-                check_path: /
+                check_path: home.index
                 
             logout:
                 path: /logout

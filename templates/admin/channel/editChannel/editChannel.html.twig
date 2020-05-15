@@ -26,21 +26,26 @@
                         </div>
                     </div>
                     <div class="main d-flex flex-column align-items-center justify-content-center">
+
                         <!--img logo-->
-                        <div class="rounded-circle avatar with-default-profile">
-                            <i class="fa-3x far fa-edit"></i>
+                        <div class="image-upload">
+                            <label for="cameraInput">
+                                <img src="{{ channel.avatar }}" alt="" id="profil">
+                                <i class="far fa-edit" style="font-size:50px; color: #EF0051"></i>
+                            </label>
+                            <input type="file" accept="image/*" id="cameraInput">
                         </div>
+
                         <!--input-->
                         <div class="row mb-1">
                             <div class="col-sm">
-                             {{ form_start(form) }}
                                 <div class="form-group editchannel" >
-                                    {{ form_row(form.nomChaine) }} 
+                                     <input type='text' id="channels" class='form-control text-center text-black' placeholder='nom de la chaine' value='{{channel.nomChaine}}'> 
                                 </div>
                                 <div class="form-group editchannel">
                                     <button id="button-settingsAdmin" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" >Enregistrer</button>
                                 </div>
-                             {{ form_end(form) }}
+                                
                             </div>
                         </div>
                     </div>  

@@ -391,6 +391,10 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 }
 
 @media (min-width: 576px) { 
+    .logo-setting {
+        width: 9vh;
+        margin: auto;
+    }
     .has-search .form-control{
         padding-left: 2.4rem;
         width: 100%;
@@ -434,8 +438,9 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 
  }
  @media (max-width:575.98px){
-    div.rounded-circle.avatar {
-        position: relative;
+    .logo-setting {
+        width: 9vh;
+        margin: auto;
     }
     .avatar i.fa-3x.far.fa-edit{
         position: absolute;
@@ -452,12 +457,19 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
  }
  @media (min-width:576px) and (max-width:767px){
 
-   
+    .logo-setting {
+        width: 9vh;
+        margin: auto;
+    }
 
  }
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) { 
+    .logo-setting {
+        width: 20vh;
+        margin: auto;
+    }
     .has-search .form-control{
         padding-left: 2.4rem;
         width: 100%;
@@ -496,6 +508,10 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) { 
+    .logo-setting {
+        width: 20vh;
+        margin: auto;
+    }
     .has-search .form-control{
         padding-left: 2.4rem;
         width: 100%;
@@ -525,6 +541,10 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) { 
+    .logo-setting {
+        width: 20vh;
+        margin: auto;
+    }
     .has-search .form-control {
         padding-left: 2.4rem;
         width: 60vh;
@@ -578,6 +598,11 @@ a.fa-2x.far.fa-edit, a.far.fa-trash-alt.fa-2x{
     color: black;
     text-decoration: none;
     text-decoration-line: none !important;
+    position: relative;
+    cursor: pointer;
+    top: 0px !important;
+    left: 0px !important;
+    transform: none !important;
 }
 
 a.fa-2x.far.fa-edit :hover{

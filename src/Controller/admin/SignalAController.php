@@ -81,4 +81,12 @@ class SignalAController extends BaseController{
 
         return $this->render('admin/Signalements/blankPage.html.twig');
     }
+
+   /**
+     * @Route("/signal/{id}", name="admin.bannir", methods={"GET"})
+     */
+    public function bannir(): Response
+    {
+        return $this->redirectToRoute('admin.Signalements.index');
+    }
 }

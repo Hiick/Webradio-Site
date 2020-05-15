@@ -50,27 +50,25 @@
                                     </thead>
                                     <tbody id='corps-table'>
                                          {% for user in users %}
+                                         {% if user.role != "ROLE_SUPER_ADMIN" %}
                                             <tr>
-                                                <td>{{ user.avatar|raw }}</td>
+                                                <td><img class="rounded-circle" style="font-size:2em; width:31px; height:32px;" src="{{ user.avatar }}" alt="" id="profil"></td>
                                                 <td>{{ user.username }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td>{{ user.channels }}</td>
                                                 <td>{{ user.role }}</td>
                                                 <td>{{ user.status }}</td>
                                                 <td>
-                                                    {% if user.roles == "ROLE_ADMIN" %}
+                                                    {% if user.role == "ROLE_ADMIN" %}
                                                     <a href='{{ path('superadmin.users.edit', {'id': user.id}) }}' class='fa-2x far fa-edit' id=''></a>
                                                 </td>
                                                 {% else %}
-                                                    <form method="post" action="{{ path('superadmin.channel.delete', {'id': user.id}) }}" style="display: inline-block">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                                                        <a  href='#removeModal' data-toggle='modal' data-dismiss='modal' class='btn text-danger' class='far fa-trash-alt fa-2x'></a>
-                                                    </form>
+                                                        <a  href='#bannirModal' data-toggle='modal' data-dismiss='modal'  class='far fa-trash-alt fa-2x'></a>
                                                         <a href='{{ path('superadmin.users.edit', {id: user.id}) }}' style="display: inline-block" class='fa-2x far fa-edit'></a>
                                                 </td>
                                                     {% endif %}
                                             </tr>
+                                            {% endif %}
                                             {% include 'superAdmin/user/removeUser/modal.html.twig' %}
                                          {% endfor %}
                                     </tbody>

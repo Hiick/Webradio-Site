@@ -54,15 +54,22 @@ class AdminDashController extends BaseController{
     }
 
     /**
-     * @Route("/admin/setting/{id}", name="admin.setting.index")
+     * @Route("/setting/{id}", name="admin.setting.index")
      * @IsGranted("ROLE_ADMIN")
      */
     public function settings(Request $request): Response {
         $user = $this->getUser();
 
-        $form = $this->createForm(SettingProfilType::class, $user);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+
+            $user->setAvatar($params['downloadUrl']);
+            $user->setUsername($params['username']);
+            $user->setEmail($params['email']);
+
             $this->em->persist($user);
             $this->em->flush();
             $this->addFlash(
@@ -73,7 +80,6 @@ class AdminDashController extends BaseController{
 
         return $this->render('admin/settings/base.html.twig', [
             'user' => $user,
-            'settingsForm' => $form->createView()
         ]);
     }
 }

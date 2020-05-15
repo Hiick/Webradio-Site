@@ -21,9 +21,14 @@
                 </div>
                 <div class="main d-flex flex-column align-items-center justify-content-center">
 
-                    <div class="rounded-circle avatar with-default">
-                        <i class="fa-3x far fa-edit" id="avatar" onclick="inputBtn();"></i>
+                    <div class="image-upload">
+                        <label for="cameraInput">
+                            <img src="{{ asset('assets/element-1.png') }}" alt="" id="profil">
+                            <i class="far fa-edit" style="font-size:50px; color: #EF0051"></i>
+                        </label>
+                        <input type="file" accept="image/*" id="cameraInput">
                     </div>
+
                     <!--input-->
                     <div class="row mb-5">
                         <div class="col-sm">
@@ -34,12 +39,9 @@
                                 <input type='text' id="email" class='form-control text-center text-black' placeholder='Email' value=''>
                             </div>
                             <div class="form-group adduser">
-                                <input type='text' id="nomchaine" class='form-control text-center text-black' placeholder='Chaîne' value=''>
-                            </div>
-                            <div class="form-group adduser">
                                 <select class="form-control" id="sel1">
-                                    <option class="text-center text-black">USER</option>
-                                    <option class="text-center text-black">ADMIN</option>
+                                    <option class="text-center text-black">ROLE_USER</option>
+                                    <option class="text-center text-black">ROLE_ADMIN</option>
                                 </select>
                             </div>
                             <div class="form-group adduser">

@@ -50,12 +50,18 @@
                                     <tbody id='corps-table'>
                                          {% for channel in channels %}
                                             <tr>
-                                                <td>{{ channel.avatar|raw }}</td>
+                                                <td><img class="rounded-circle" style="font-size:2em; width:31px; height:32px;" src="{{ channel.avatar }}" alt="" id="profil"></td>
                                                 <td>{{ channel.nomChaine }}</td>
                                                 <td>{{ channel.proprietaire }}</td>
                                                 <td>{{ channel.status }}</td>
-                                                <td><a href='#removeModal' data-toggle='modal' data-dismiss='modal' class='far fa-trash-alt fa-2x' id=''></a><a href='{{ path('admin.channel.edit', {id: channel.id}) }}' class='fa-2x far fa-edit' id=''></a></td>
+                                                <td>
+                                                    <a href='#bannirModal' data-toggle='modal' data-dismiss='modal'  class='far fa-trash-alt fa-2x'></a>
+                                                  
+                                                    <a href='{{ path('admin.channel.edit', {id: channel.id}) }}' class='fa-2x far fa-edit' id=''></a>
+                                                    
+                                                </td>
                                             </tr>
+                                            {% include 'admin/channel/removeChannel/modal.html.twig' %}
                                          {% endfor %}
                                     </tbody>
                                     </table>

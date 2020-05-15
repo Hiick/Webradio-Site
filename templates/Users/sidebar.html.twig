@@ -10,7 +10,7 @@
     <!--Avatar-->
     <a class="nav-link d-flex flex-column align-items-center" href="#">
         <div class="nav-item">
-            <img class="rounded-circle logo-setting" src="../../assets/artist_image.png"/>
+            <img class="rounded-circle logo-setting" id="logo-setting" src="{{ app.user.avatar }}"/>
         </div>
     </a>
 
@@ -51,7 +51,7 @@
     <!-- Nav Item - deconexion -->
     <li class="nav-item active" >
         <a class="nav-link d-flex align-items-center justify-content-center" href="{{ path('logout') }}">
-            <span>se déconnecter</span>
+            <span>Se déconnecter</span>
         </a>
     </li>
 

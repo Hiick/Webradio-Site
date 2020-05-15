@@ -49,26 +49,24 @@
                                     </thead>
                                     <tbody id='corps-table'>
                                          {% for user in users %}
+                                         {% if user.role != "ROLE_SUPER_ADMIN" %}
                                             <tr>
-                                                <td>{{ user.avatar|raw }}</td>
+                                                <td><img class="rounded-circle" style="font-size:2em; width:31px; height:32px;" src="{{ user.avatar }}" alt="" id="profil"></td>
                                                 <td>{{ user.username }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td>{{ user.channels }}</td>
                                                 <td>{{ user.status }}</td>
                                                 <td>
-                                                    {% if user.roles == "ADMIN" %}
-                                            
+                                                    {% if user.role == "ROLE_ADMIN" %}
                                                 </td>
                                                 {% else %}
-                                                    <form method="post" action="{{ path('admin.channel.delete', {'id': user.id}) }}" style="display: inline-block" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                                                        <button style="background: none; border: none;" class='far fa-trash-alt fa-2x'></button>
-                                                    </form>
+                                                        <a  href='#bannirModal' data-toggle='modal' data-dismiss='modal'  class='far fa-trash-alt fa-2x'></a>
                                                         <a href='{{ path('admin.users.edit', {id: user.id}) }}' style="display: inline-block" class='fa-2x far fa-edit'></a>
                                                 </td>
-                                                    {% endif %}
+                                                {% endif %}
                                             </tr>
+                                        {% endif %}
+                                            {% include 'admin/user/removeUser/modal.html.twig' %}
                                          {% endfor %}
                                     </tbody>
                                     </table>

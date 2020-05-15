@@ -23,16 +23,17 @@
                         <ul>
                             <li>
                                 <input id="s1" type="checkbox" class="switch">
-                                <label for="s1">Dark mode</label>
+                                <label for="s1" class="text-black">Dark Mode</label>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="main d-flex flex-column align-items-center justify-content-center">
+
                     <!--img logo-->
                     <div class="image-upload">
                         <label for="cameraInput">
-                            <img src="{{ asset('assets/artist_image.png') }}" alt="" id="profil">
+                            <img src="{{ user.avatar }}" alt="" id="profil">
                             <i class="far fa-edit" style="font-size:50px; color: #EF0051"></i>
                         </label>
                         <input type="file" accept="image/*" id="cameraInput">
@@ -40,28 +41,69 @@
 
                     <!--input-->
 
-                    {{ form_start(settingForm) }}
-                    <div class="row mb-5">
+                    <div class="row mb-3">
                         <div class="col-sm">
                             <div class="form-group setting">
-                                {{form_row(settingForm.username)}}
+                                <input type='text' id="username" class='form-control text-center text-black' placeholder='username' value='{{user.username}}'>
                             </div>
 
                             <div class="form-group setting">
-                                {{form_row(settingForm.channels)}}
-                            </div>
-
-                            <div class="form-group setting">
-                                 {{form_row(settingForm.password)}} 
-                            </div>
-                            <div class="form-group setting">
-                                <input type="submit" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" value="Enregistrer">
+                                <input type="submit" id="envoyer" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" value="Enregistrer">
                             </div>
                         </div>
-                    </>
-                    {{ form_end(settingForm)}}
-                </div>  
-            </div>
+                     </div>  
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0 w-100 mb-5">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-sm">
+
+                            <div class="image-upload">
+                                <label for="cameraInput">
+                                    <img src="{{ user.avatar }}" alt="" id="profil">
+                                    <i class="far fa-edit" style="font-size:50px; color: #EF0051"></i>
+                                </label>
+                                <input type="file" accept="image/*" id="cameraInput">
+                            </div>
+
+                            <div class="form-group setting">
+                                <input type='text' id="channels" class='form-control text-center text-black' placeholder='nom de la chaine' value='{{user.channels}}'>
+                            </div>
+
+                            <div class="form-group setting">
+                                <input type="submit" id="channelSave" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" value="Enregistrer">
+                            </div>
+                        </div>
+                    </div> 
+                </form>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0 w-100 mb-5">
+
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-xl-12 d-flex flex-column align-items-center justify-content-center">
+                            <div class="">
+                                <h2 class="h2 mb-2 text-black">Changer mon mot de passe</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm">
+
+                            <div class="form-group setting">
+                                <input type='password' id="password" class='form-control text-center text-black' placeholder='mot de passe' value='{{user.password}}'>
+                            </div>
+
+                            <div class="form-group setting">
+                                <input type="submit" id="savePassword" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" value="Enregistrer">
+                            </div>
+                        </div>
+                    </div> 
+                </form>
+
+                </div>
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">

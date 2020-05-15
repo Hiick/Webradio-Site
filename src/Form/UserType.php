@@ -33,14 +33,6 @@ class UserType extends AbstractType
                     'class' => 'form-control text-center text-black'
                 ]
             ])    
-            ->add('channels', TextType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Chaînes',
-                    'class' => 'form-control text-center text-black'
-                ]
-            ])
         ;
     }
 

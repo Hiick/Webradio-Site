@@ -7,6 +7,54 @@ console.log('ici register');
 
 $('#connexion').click(function(e) {
 
+        let username = $('#username').val().trim();
+        let email = $('#email').val().trim();
+        let password = $('#password').val().trim();
+
+    $(".erreur").remove();
+
+    if (username.length < 3) 
+    {
+        $('#username').after('<div class="erreur text-dark small" style="font-size: xx-small;">Le nom d\'utilisateur doit être de 3 caractères minimum et ne peux pas contenir d\'espace</div>');
+
+        //if(username.split('')[0])   
+        
+    }else if(username.length > 10)
+    {
+        $('#username').after('<div class="erreur text-dark small" style="font-size: xx-small;">Le nom d\'utilisateur doit être  moins de 10 caractères</div>');
+    
+    }
+    if (email.length < 1)
+    {
+       $('#email').after('<div class="erreur text-dark small" style="font-size: xx-small;">Ce champ est obligatoire</div>'); 
+    }else{
+        let regEx = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
+        let validEmail = regEx.test(email);
+
+        if(!validEmail)
+        {
+            $('#email').after('<span class="erreur text-dark small" style="font-size: xx-small;">Merci de rentrer une adresse email valide</span>');
+        }
+    }
+    if (password.length < 8)
+    {
+       $('#password').after('<div class="erreur text-dark small-2" style="font-size: xx-small;">Merci de rentrer un mot de passe de 8 caractères minimum</div>');   
+    }
+    let lowerCaseLetters = /[a-z]/gi;
+    let numbers = /[0-9]/i;
+    let upperCaseLetters = /[A-Z]/gi;
+
+    if(!password.match(lowerCaseLetters)) {
+        $('#password').after('<div class="erreur text-dark small-2" style="font-size: xx-small;">Le mot de passe doit contenir au moins une letter minuscule</div>');   
+    } 
+    if(!password.match(upperCaseLetters)) {
+         $('#password').after('<div class="erreur text-dark small-2" style="font-size: xx-small;">Le mot de passe doit contenir au moins une letter majuscule</div>');   
+    }
+
+    if(!password.match(numbers)) {
+        $('#password').after('<div class="erreur text-dark small-2" style="font-size: xx-small;">Le mot de passe doit contenir au moins un chiffre</div>');   
+    }
+
     $.ajax({
         url: '/register',
         type: 'POST',

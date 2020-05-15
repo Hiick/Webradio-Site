@@ -50,16 +50,12 @@
                                     <tbody id='corps-table'>
                                          {% for Signalement in Signalements %}
                                             <tr>
-                                                <td>{{ Signalement.avatar|raw }}</td>
+                                                <td><img class="rounded-circle" style="font-size:2em; width:31px; height:32px;" src="{{ Signalement.avatar }}" alt="" id="profil"></td>
                                                 <td>{{ Signalement.nomChaine }}</td>
                                                 <td>{{ Signalement.nombreSignal }}</td>
                                                 <td><a href='{{ path('superadmin.Signalements.show', {slug: Signalement.slug, id: Signalement.id}) }}' >{{ Signalement.listSignal }}</a></td>
                                                 <td>
-                                                    <form method="post" action="{{ path('superadmin.bannir.delete', {'id': Signalement.id}) }}" style="display: inline-block">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ Signalement.id) }}">
-                                                        <a href='#bannirModal' data-toggle='modal' data-dismiss='modal' class='btn text-danger'>{{ Signalement.management }}</a>
-                                                    </form>
+                                                   <a href='#bannirModal' data-toggle='modal' data-dismiss='modal' class='btn text-danger'>{{ Signalement.management }}</a>
                                                 </td>
                                             </tr>
                                             {% include 'superAdmin/signalements/bannir.html.twig' %}

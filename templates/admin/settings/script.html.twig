@@ -1,3 +1,11 @@
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
+<!-- Core plugin JavaScript-->
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -7,3 +15,116 @@
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 <script src="{{ asset('js/mainJs/index.js') }}"></script>
+<script>
+
+$(document).ready(function() {
+
+    let firebaseConfig;
+    let downloadUrl;
+
+    $.ajax({
+    method: "GET", 
+    url: "/admin/users/firebase", 
+    async: true,
+    success: function(data) {
+    //console.log(data.apiKey+" "+data.authDomain+" "+data.databaseURL+" "+data.projectId+" "+data.storageBucket);
+    
+        firebaseConfig = {
+            apiKey: data.apiKey,
+            authDomain: data.authDomain,
+            databaseURL: data.databaseURL,
+            projectId: data.projectId,
+            storageBucket: data.storageBucket
+        };
+
+
+        firebase.initializeApp(firebaseConfig);
+
+        // On détecte le changement de fichier
+        $('#cameraInput').on('change', function() {
+            // On récupère le nouveau fichier
+            let selectedFile = event.target.files[0];
+
+        
+            let filename = $('#cameraInput').val().replace(/C:\\fakepath\\/i, '');
+            let storageRef = firebase.storage().ref('/User/{{ app.user.id }}' + filename);
+
+            // On envoi le fichier à Firebase
+            let upload = storageRef.put(selectedFile);
+
+            // Le traitement Firebase se fait ici
+            upload.on('state_changed', function(snapshot) {
+
+            }, function(error) {
+                // Si Firebase renvoi une error on l'a met ici
+                console.log(error)
+            }, function() {
+                // On récupère l'URL téléchargeable
+                downloadUrl = upload.snapshot.downloadURL;
+                // On l'affiche
+                 console.log(downloadUrl);
+            
+                // On remplace l'URL de l'image par la nouvelle
+                    $('#profil').attr('src', downloadUrl);
+                    $('#logo-setting').attr('src', downloadUrl)
+
+
+                        $('#button-settingsAdmin').click(function(e){
+                            e.preventDefault();
+                            console.log(downloadUrl)
+
+                             let username = $('#username').val().trim();
+                            let email = $('#email').val().trim();
+
+
+                                 $(".erreur").remove();
+
+                                if (username.length < 3) 
+                                {
+                                    $('#username').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Le nom d\'utilisateur doit être de 3 caractères minimum et ne peux pas contenir d\'espace</div>'); 
+                                }else if(username.length > 10)
+                                {
+                                    $('#username').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Le nom d\'utilisateur doit être  moins de 10 caractères</div>');
+                                }
+                                if (email.length < 1)
+                                {
+                                $('#email').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Ce champ est obligatoire</div>'); 
+                                }else{
+                                    let regEx = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
+                                    let validEmail = regEx.test(email);
+
+                                    if(!validEmail)
+                                    {
+                                        $('#email').after('<span class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Merci de rentrer une adresse email valide</span>');
+                                    }
+                                }
+
+                            $.ajax({
+                                    type: "POST", 
+                                    url: "/admin/setting/{{app.user.id}}", 
+                                    data: JSON.stringify({
+                                        "downloadUrl": downloadUrl,
+                                        "username": username,
+                                        "email": email,
+                                    }),
+                                    async: true,
+                                    success: function(responseText) {
+                                        console.log('ici succ');
+                                    },
+                                    error: function (error) {
+                                        console.log(error);
+                                    }
+                            });
+
+                        });       
+
+            });
+        });
+
+    }
+
+    });
+
+    
+});
+</script>

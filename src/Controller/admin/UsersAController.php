@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface; 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/users")
@@ -55,55 +56,95 @@ class UsersAController extends BaseController{
      */
     public function new(Request $request): Response
     {
-       $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        $user = new User();
+        $content = $request->getContent();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+
+            $user->setAvatar($params['downloadUrl']);
+            $user->setUsername($params['username']);
+            $user->setEmail($params['email']);
+            $user->setChannels($params['username']."Sound");
+            $user->setRole($params['role']);
+            $user->setStatus("Active");
+           
             $this->em->persist($user);
             $this->em->flush();
 
             return $this->redirectToRoute('admin.users.index');
+
         }
 
-        return $this->render('admin/user/new/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('admin/user/new/new.html.twig');
         
     }
 
     /**
      * @Route("/{id}/edit", name="admin.users.edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user): Response
-    {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+    public function edit(User $user, Request $request): Response {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if($request->isXmlHttpRequest()){
 
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+
+            $user->setAvatar($params['downloadUrl']);
+            $user->setUsername($params['username']);
+            $user->setEmail($params['email']);
+            $user->setChannels($params['channels']);
+
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash(
+                'success',
+                "Votre compte à ete mis à jour!!!!"
+            );
             return $this->redirectToRoute('admin.users.index');
         }
 
         return $this->render('admin/user/edit/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+            'user' => $user
         ]);
+    
     }
 
     /**
-     * @Route("/{id}", name="admin.user.delete", methods={"DELETE"})
+     * @Route("/firebase", name="admin.firebase")
      */
-    public function delete(Request $request, User $user): Response
+    
+    public function configFirebase () {
+
+        $apiKey = $_ENV['APIKEY'];
+        $authDomain = $_ENV['AUTHDOMAIN'];
+        $databaseURL = $_ENV['DATABASEURL'];
+        $projectId = $_ENV['PROJECTID'];
+        $storageBucket = $_ENV['STORAGEBUCKET'];
+
+        return new JsonResponse([
+            'apiKey' =>  $apiKey,
+            'authDomain' => $authDomain,
+            'databaseURL' =>  $databaseURL,
+            'projectId' => $projectId,
+            'storageBucket' => $storageBucket,
+        ]);
+            
+    }
+
+    /**
+     * @Route("/{id}", name="admin.user.bannir", methods={"GET","POST"})
+     */
+    public function bannir(User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
+            $user->getId();
+            $user->setStatus("Banni");
+            $this->em->persist($user);
+            $this->em->flush();
 
         return $this->redirectToRoute('admin.users.index');
     }

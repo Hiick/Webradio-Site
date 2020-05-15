@@ -13,6 +13,10 @@
         <div id="content">
             {% include 'Users/navigation.html.twig' %}
             <div class="container-fluid">
+                <div class="row col-xl-12 alert alert-success d-none" id="mycompte" role="alert">
+                    success votre compte a été mis à jour!!
+                </div>
+
                 <div class="row">
                     <div class="col-xl-10 d-flex flex-column align-items-center justify-content-center">
                         <div class="titre-setting">
@@ -56,12 +60,22 @@
                     <!-- Divider -->
                     <hr class="sidebar-divider my-0 w-100 mb-5">
                 <form>
+                    <div class="row col-xl-12 alert alert-success d-none" id="mychannels" role="alert">
+                         success ma chaîne a été mis à jour!!
+                    </div>
+
+                        <div class="col-xl-12 d-flex flex-column align-items-center justify-content-center">
+                            <div class="">
+                                <h2 class="h2 mb-2 text-black">Ma chaîne</h2>
+                            </div>
+                        </div>
+
                     <div class="row mb-3">
                         <div class="col-sm">
 
                             <div class="image-upload">
                                 <label for="cameraInput">
-                                    <img src="{{ user.avatar }}" alt="" id="profil">
+                                    <img src="{{ user.avatar }}" alt="image" id="avatarChannel">
                                     <i class="far fa-edit" style="font-size:50px; color: #EF0051"></i>
                                 </label>
                                 <input type="file" accept="image/*" id="cameraInput">
@@ -82,6 +96,10 @@
                 <hr class="sidebar-divider my-0 w-100 mb-5">
 
                 <form>
+                    <div class="row col-xl-12 alert alert-success"  style="display: none;" id="mypassword" role="alert">
+                         succès le mot de passe a changer!!
+                    </div>
+
                     <div class="row mb-3">
                         <div class="col-xl-12 d-flex flex-column align-items-center justify-content-center">
                             <div class="">

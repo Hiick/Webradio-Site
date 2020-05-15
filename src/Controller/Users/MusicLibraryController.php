@@ -3,6 +3,7 @@
 namespace App\Controller\Users;
 
 use App\Controller\BaseController;
+use App\Entity\MusicLibrary;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
     /**
-     * @Route("/profile/library", name="profile.library.index")
+     * @Route("/profile/library")
      * @IsGranted("ROLE_USER")
      */
 class MusicLibraryController extends BaseController {
@@ -40,24 +41,24 @@ class MusicLibraryController extends BaseController {
      */
     public function new(Request $request): Response
    {
-        $content = $request->getContent();
+        $music = new MusicLibrary();
+        $user = $this->getUser();
 
-        if(!empty($content)) {
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
 
             $params = json_decode($content, true);
+            $music->setName($params['filename']);
 
-           
-
-            
-           
             //$this->em->persist($user);
             //$this->em->flush();
-
         }
 
-        return $this->responseApi([
-            "data" => json_decode($content, true)
-        ], 200);
+        
+        return $this->redirectToRoute('profile.library.index'); 
     }
+
+    
 
 }

@@ -50,7 +50,7 @@
                                     <tbody id='corps-table'>
                                          {% for Signalement in Signalements %}
                                             <tr>
-                                                <td>{{ Signalement.avatar|raw }}</td>
+                                                <td><img class="rounded-circle" style="font-size:2em; width:31px; height:32px;" src="{{ Signalement.avatar }}" alt="" id="profil"></td>
                                                 <td>{{ Signalement.nomChaine }}</td>
                                                 <td>{{ Signalement.nombreSignal }}</td>
                                                 <td><a href='{{ path('superadmin.Signalements.show', {slug: Signalement.slug, id: Signalement.id}) }}' >{{ Signalement.listSignal }}</a></td>

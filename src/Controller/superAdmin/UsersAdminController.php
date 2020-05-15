@@ -44,14 +44,12 @@ class UsersAdminController extends BaseController{
         $user = $paginator->paginate($this->repository->findAllVisibleQuery($search),
         $request->query->getInt('page', 1), 5);
 
-        return $this->render('superadmin/user/index.html.twig', [
+        return $this->render('superAdmin/user/index.html.twig', [
             'users' => $user,
             'form' => $form->createView(),
         ]);
 
-        /*return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);*/
+
     }
 
     /**
@@ -63,22 +61,29 @@ class UsersAdminController extends BaseController{
         $user = new User();
         $content = $request->getContent();
 
-        if(!empty($content)) {
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
 
             $params = json_decode($content, true);
 
-            $user->setAvatar("https://firebasestorage.googleapis.com/v0/b/webradio-stream.appspot.com/o/User%2F70element-1.png?alt=media&token=fa8fa419-9e5f-4738-b2de-85536002a0d1");
+            $user->setAvatar($params['downloadUrl']);
             $user->setUsername($params['username']);
             $user->setEmail($params['email']);
+            $user->setChannels($params['username']."Sound");
             $user->setRole($params['role']);
             $user->setStatus("Active");
            
             $this->em->persist($user);
             $this->em->flush();
 
+            return $this->redirectToRoute('superadmin.users.index');
+
         }
 
-        return $this->render('superadmin/user/new/new.html.twig');
+        return $this->render('superAdmin/user/new/new.html.twig', [
+            'user' => $user
+        ]);
     }
 
 
@@ -121,7 +126,7 @@ class UsersAdminController extends BaseController{
             $user->setAvatar($params['downloadUrl']);
             $user->setUsername($params['username']);
             $user->setEmail($params['email']);
-            $user->setChannels($params['channels']);
+            $user->setRole($params['role']);
 
             $this->em->persist($user);
             $this->em->flush();
@@ -132,31 +137,11 @@ class UsersAdminController extends BaseController{
             return $this->redirectToRoute('superadmin.users.index');
         }
 
-        return $this->render('superAdmin/user/edit/edit.html.twig');
-    
-    }
-
-    /**
-     * @Route("/firebase", name="app.firebase")
-     */
-    
-    public function configFirebase () {
-
-        $apiKey = $_ENV['APIKEY'];
-        $authDomain = $_ENV['AUTHDOMAIN'];
-        $databaseURL = $_ENV['DATABASEURL'];
-        $projectId = $_ENV['PROJECTID'];
-        $storageBucket = $_ENV['STORAGEBUCKET'];
-
-        return new JsonResponse([
-            'apiKey' =>  $apiKey,
-            'authDomain' => $authDomain,
-            'databaseURL' =>  $databaseURL,
-            'projectId' => $projectId,
-            'storageBucket' => $storageBucket,
+        return $this->render('superAdmin/user/edit/edit.html.twig', [
+            'user' => $user
         ]);
-            
-    }
     
+    }
+
 
 }

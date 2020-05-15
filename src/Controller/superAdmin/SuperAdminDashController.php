@@ -3,16 +3,27 @@ namespace App\Controller\superAdmin;
 
 use App\Controller\BaseController;
 use App\Form\SettingType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  *  @Route("/superadmin")
  * @IsGranted("ROLE_SUPER_ADMIN")
  */
-class SuperAdminDashController extends BaseController{
+class SuperAdminDashController extends BaseController {
+
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        
+        $this->em = $em;
+    }
+
 
     /**
      * @Route("/", name="superadmin.index")
@@ -38,16 +49,46 @@ class SuperAdminDashController extends BaseController{
         return $this->responseApi([$listStatistique]);
     }
 
+
     /**
-     * @Route("/setting/{id}", name="superadmin.setting.index")
+     * @Route("/superadmin-firebase")
      */
     
+    public function configFirebase () {
+
+        $apiKey = $_ENV['APIKEY'];
+        $authDomain = $_ENV['AUTHDOMAIN'];
+        $databaseURL = $_ENV['DATABASEURL'];
+        $projectId = $_ENV['PROJECTID'];
+        $storageBucket = $_ENV['STORAGEBUCKET'];
+
+        return new JsonResponse([
+            'apiKey' =>  $apiKey,
+            'authDomain' => $authDomain,
+            'databaseURL' =>  $databaseURL,
+            'projectId' => $projectId,
+            'storageBucket' => $storageBucket,
+        ]);
+            
+    }
+
+    /**
+     * @Route("/setting/{id}", name="superadmin.setting.index")
+     */ 
     public function settings(Request $request): Response {
+
         $user = $this->getUser();
 
-        $form = $this->createForm(SettingType::class, $user);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+
+            $user->setAvatar($params['downloadUrl']);
+            $user->setUsername($params['username']);
+            $user->setEmail($params['email']);
+
             $this->em->persist($user);
             $this->em->flush();
             $this->addFlash(
@@ -58,7 +99,6 @@ class SuperAdminDashController extends BaseController{
 
         return $this->render('superAdmin/settings/base.html.twig', [
             'user' => $user,
-            'settingsForm' => $form->createView()
         ]);
     }
 }

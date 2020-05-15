@@ -41,7 +41,7 @@ class ChannelAdminController extends BaseController{
         $channels = $paginator->paginate($this->repository->findAllVisibleQuery($search),
         $request->query->getInt('page', 1), 5);
 
-        return $this->render('superadmin/channel/base.html.twig', [
+        return $this->render('superAdmin/channel/base.html.twig', [
             'channels' => $channels,
             'form' => $form->createView(),
         ]);
@@ -53,18 +53,23 @@ class ChannelAdminController extends BaseController{
      */
     public function edit(Request $request, Channels $channels): Response
     {
-        $form = $this->createForm(ChannelsType::class, $channels);
-        $form->handleRequest($request);
+        if($request->isXmlHttpRequest()){
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+
+            $channels->setAvatar($params['downloadUrl']);
+            $channels->setNomChaine($params['channels']);
+            
+            $this->em->persist($channels);
+            $this->em->flush();
 
             return $this->redirectToRoute('superadmin.channel.index');
         }
 
-        return $this->render('superadmin/channel/editChannel/editChannel.html.twig', [
+        return $this->render('superAdmin/channel/editChannel/editChannel.html.twig', [
             'channel' => $channels,
-            'form' => $form->createView(),
         ]);
     }
 

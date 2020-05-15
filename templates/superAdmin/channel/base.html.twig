@@ -50,7 +50,7 @@
                                     <tbody id='corps-table'>
                                          {% for channel in channels %}
                                             <tr>
-                                                <td>{{ channel.avatar|raw }}</td>
+                                                <td><img class="rounded-circle" style="font-size:2em; width:31px; height:32px;" src="{{ channel.avatar }}" alt="" id="profil"></td>
                                                 <td>{{ channel.nomChaine }}</td>
                                                 <td>{{ channel.proprietaire }}</td>
                                                 <td>{{ channel.status }}</td>

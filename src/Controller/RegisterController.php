@@ -27,7 +27,7 @@ class RegisterController extends BaseController
         $this->encoder = $encoder;
     }
      /**
-     * @Route("", name="user_registration")
+     * @Route("/register", name="user.registration")
      */
 
         public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UsersAuthenticator $authenticator): Response
@@ -44,7 +44,7 @@ class RegisterController extends BaseController
             $user->setUsername($params['username']);
             $user->setEmail($params['email']);
             $user->setChannels($params['username']."Sound");
-            $user->setRole("User");
+            $user->setRole("ROLE_USER");
             $hash = $this->encoder->encodePassword($user, $params['password']);
             $user->setPassword($hash);
             $user->setStatus("Active");

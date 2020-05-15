@@ -4,7 +4,6 @@ namespace App\Controller\Users;
 
 use App\Controller\BaseController;
 use App\Entity\User;
-use App\Form\SettingProfilType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,16 +67,10 @@ class ProfileController extends BaseController {
 
             $user->setAvatar($params['downloadUrl']);
             $user->setUsername($params['username']);
-            $user->setEmail($params['email']);
-            $user->setChannels($params['channels']);
-
+            
             $this->em->persist($user);
             $this->em->flush();
-            $this->addFlash(
-                'success',
-                "Votre compte à ete mis à jour!!!!"
-            );
-           
+        
         }
         
 
@@ -107,6 +100,51 @@ class ProfileController extends BaseController {
             
     }
 
+    /**
+     * @Route("/setting/password/{id}", name="profile.passwordChange")
+     * @IsGranted("ROLE_USER")
+     */
+    public function passwordChange(Request $request): Response {
+        $user = $this->getUser();
 
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+            $hash = $this->encoder->encodePassword($user, $params['password']);
+            $user->setAvatar($hash);
+
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+
+        
+        return $this->redirectToRoute('profile.setting.index'); 
+    }
+
+    /**
+     * @Route("/setting/channel/{id}", name="profile.channel.edit")
+     * @IsGranted("ROLE_USER")
+     */
+    public function channelEdit(Request $request): Response {
+        $user = $this->getUser();
+
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+
+            $user->setAvatar($params['downloadUrl']);
+            $user->setChannels($params['channels']);
+
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+
+        
+        return $this->redirectToRoute('profile.setting.index');
+    }
    
 }

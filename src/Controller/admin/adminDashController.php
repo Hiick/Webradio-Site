@@ -82,4 +82,29 @@ class AdminDashController extends BaseController{
             'user' => $user,
         ]);
     }
+
+        /**
+     * @Route("/setting/password/{id}", name="admin.passwordChange")
+     * @IsGranted("ROLE_USER")
+     */
+    public function passwordChange(Request $request): Response {
+        $user = $this->getUser();
+
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+            $hash = $this->encoder->encodePassword($user, $params['password']);
+            $user->setAvatar($hash);
+
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+
+        
+        return $this->render('admin/settings/base.html.twig', [
+            'user' => $user,
+        ]);
+    }
 }

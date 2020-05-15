@@ -4,28 +4,75 @@
 $(document).ready(function() {
     
     let track =  document.getElementById("track");
-    function playPause () {
+    $(document).ready(function() {
+    
+    let track =  document.getElementById("track");
+    
+    function playPause1 () {
+
         if(track.paused) {
 
             track.play();
-            $("#play-pause").addClass('pause');
+            $("#play-pause1").addClass('pause');
         }else {
             track.pause();
-            $("#play-pause").removeClass('pause');
-                console.log('ici');
+            $("#play-pause1").removeClass('pause');
+        }
+    } 
+
+    function playPause2 () {
+
+        if(track.paused) {
+
+            track.play();
+            $("#play-pause2").addClass('pause');
+        }else {
+            track.pause();
+            $("#play-pause2").removeClass('pause');
+        }
+    }  
+
+    function playPause3 () {
+
+        if(track.paused) {
+
+            track.play();
+            $("#play-pause3").addClass('pause');
+        }else {
+            track.pause();
+            $("#play-pause3").removeClass('pause');
         }
     }
 
-    $('#play-pause').click(function() {
-        playPause();
+        function playPause4 () {
+
+        if(track.paused) {
+
+            track.play();
+            $("#play-pause4").addClass('pause');
+        }else {
+            track.pause();
+            $("#play-pause4").removeClass('pause');
+        }
+    }
+
+     $('#play-pause1').click(function() {
+        playPause1();
     });
 
-    $('#mylink').click(function(e){
-        e.preventDefault();
-        console.log("ici");
-        $("#confirmModal").modal("show");
-        //$("#passwordLostModal").css('display', 'none');
+     $('#play-pause2').click(function() {
+        playPause2();
     });
+
+     $('#play-pause3').click(function() {
+        playPause3();
+    });
+
+     $('#play-pause4').click(function() {
+        playPause4();
+    });
+});
+
 });
 
 </script>

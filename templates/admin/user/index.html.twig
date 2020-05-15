@@ -51,7 +51,7 @@
                                          {% for user in users %}
                                          {% if user.role != "ROLE_SUPER_ADMIN" %}
                                             <tr>
-                                                <td>{{ user.avatar|raw }}</td>
+                                                <td><img class="rounded-circle" style="font-size:2em; width:31px; height:32px;" src="{{ user.avatar }}" alt="" id="profil"></td>
                                                 <td>{{ user.username }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td>{{ user.channels }}</td>

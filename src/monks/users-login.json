@@ -27,7 +27,7 @@
             "id": "3",
             "email": "mike.sylvestre@gmail.com",
             "username": "MikeSylv",
-            "avatar": "<img class='rounded-circle avatar-miky' src='../../assets/artist image.png'/>",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/webradio-stream.appspot.com/o/User%2F70artist_image.png?alt=media&token=53955580-7825-4152-966e-783f499d57c5",
             "nom_chaine" :"MikySound",
             "role":"ROLE_USER",
             "status": "Active",

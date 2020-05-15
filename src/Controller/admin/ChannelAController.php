@@ -55,18 +55,23 @@ class ChannelAController extends BaseController{
      */
     public function edit(Request $request, Channels $channels): Response
     {
-        $form = $this->createForm(ChannelsType::class, $channels);
-        $form->handleRequest($request);
+        if($request->isXmlHttpRequest()){
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+
+            $channels->setAvatar($params['downloadUrl']);
+            $channels->setNomChaine($params['channels']);
+            
+            $this->em->persist($channels);
+            $this->em->flush();
 
             return $this->redirectToRoute('admin.channel.index');
         }
 
         return $this->render('admin/channel/editChannel/editChannel.html.twig', [
             'channel' => $channels,
-            'form' => $form->createView(),
         ]);
     }
 

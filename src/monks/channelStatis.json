@@ -3,7 +3,7 @@
         {
             "id_user": "1", 
             "nom_chaine": "AlexSound",
-            "avatar": "<i class='fas fa-user-circle fa-2x text-gray-300'></i>",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/webradio-stream.appspot.com/o/User%2F70artist_image.png?alt=media&token=53955580-7825-4152-966e-783f499d57c5",
             "nombreDeStream": "17",
             "nombreDeFavoris": "7",
             "totalDecoute": "23",

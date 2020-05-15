@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface; 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/superadmin/users")
@@ -66,7 +67,7 @@ class UsersAdminController extends BaseController{
 
             $params = json_decode($content, true);
 
-            $user->setAvatar("<i class='fas fa-user-circle fa-2x text-dark-300'></i>");
+            $user->setAvatar("https://firebasestorage.googleapis.com/v0/b/webradio-stream.appspot.com/o/User%2F70element-1.png?alt=media&token=fa8fa419-9e5f-4738-b2de-85536002a0d1");
             $user->setUsername($params['username']);
             $user->setEmail($params['email']);
             $user->setRole($params['role']);
@@ -80,27 +81,6 @@ class UsersAdminController extends BaseController{
         return $this->render('superadmin/user/new/new.html.twig');
     }
 
-    
-
-    /**
-     * @Route("/{id}/edit", name="superadmin.users.edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, User $user): Response
-    {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('superadmin.users.index');
-        }
-
-        return $this->render('superAdmin/user/edit/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="superadmin.user.bannir", methods={"GET","POST"})
@@ -119,7 +99,6 @@ class UsersAdminController extends BaseController{
     
     
     
-    
     /**
      * @Route("/notifications", name="superadmin.notifications.index", methods={"GET"})
      */
@@ -128,6 +107,56 @@ class UsersAdminController extends BaseController{
         return $this->render('superAdmin/notifications/base.html.twig');
     }
 
+    /**
+     * @Route("/{id}/edit", name="superadmin.users.edit", methods={"GET","POST"}) 
+     */
+    public function edit(User $user, Request $request): Response {
+
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+
+            $user->setAvatar($params['downloadUrl']);
+            $user->setUsername($params['username']);
+            $user->setEmail($params['email']);
+            $user->setChannels($params['channels']);
+
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash(
+                'success',
+                "Votre compte à ete mis à jour!!!!"
+            );
+            return $this->redirectToRoute('superadmin.users.index');
+        }
+
+        return $this->render('superAdmin/user/edit/edit.html.twig');
+    
+    }
+
+    /**
+     * @Route("/firebase", name="app.firebase")
+     */
+    
+    public function configFirebase () {
+
+        $apiKey = $_ENV['APIKEY'];
+        $authDomain = $_ENV['AUTHDOMAIN'];
+        $databaseURL = $_ENV['DATABASEURL'];
+        $projectId = $_ENV['PROJECTID'];
+        $storageBucket = $_ENV['STORAGEBUCKET'];
+
+        return new JsonResponse([
+            'apiKey' =>  $apiKey,
+            'authDomain' => $authDomain,
+            'databaseURL' =>  $databaseURL,
+            'projectId' => $projectId,
+            'storageBucket' => $storageBucket,
+        ]);
+            
+    }
     
 
 }

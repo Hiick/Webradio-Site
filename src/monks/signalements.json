@@ -2,7 +2,7 @@
     "signalements" : [
         {
             "id": "1",
-            "avatar": "<img class='rounded-circle avatar-miky' src='../../assets/artist image.png'/>",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/webradio-stream.appspot.com/o/User%2F70artist_image.png?alt=media&token=53955580-7825-4152-966e-783f499d57c5",
             "nom_chaine" :"MikySound",
             "nombre_signalement":"758",
             "list_signalement": "voir",

@@ -1,18 +1,16 @@
-{{ form_start(form) }}
+
         <div class="form-group adduser" id="name">
-            {{ form_widget(form.username) }}
+              <input type='text' id="username" class='form-control text-center text-black' placeholder='username' value='{{user.username}}'>
         </div>
 
         <div class="form-group adduser" id="emailadd">
-            {{ form_widget(form.email) }}
+            <input type='text' id="email" class='form-control text-center text-black' placeholder='Email' value='{{user.email}}'>          
         </div>
 
         <div class="form-group adduser" id="nomchaine">
-            {{ form_widget(form.channels) }} 
+             <input type='text' id="channels" class='form-control text-center text-black' placeholder='nom de la chaine' value='{{user.channels}}'> 
         </div>
         
-    {{ form_widget(form) }}
     <div class="form-group adduser">
-        <button class="form-control border-0 font-weight-bold text-white"  style="background-color:#EF0051;">{{ button_label|default('Enregistrer') }}</button>
+        <button type="submit" id="enregister" class="form-control border-0 font-weight-bold text-white"  style="background-color:#EF0051;">Enregistrer</button>
     </div>
-{{ form_end(form) }}

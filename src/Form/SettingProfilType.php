@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,6 +25,15 @@ class SettingProfilType extends AbstractType
                     'id' => 'nom'
                 ]
             ])
+            ->add('email', EmailType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'email',
+                    'class' => 'form-control text-center text-black',
+                    'id' => 'email'
+                ]
+            ])
             ->add('channels', TextType::class, [
                 'required' => false,
                 'label' => false,
@@ -32,17 +42,7 @@ class SettingProfilType extends AbstractType
                     'class' => 'form-control text-center text-black',
                     'id' => 'nomChaine'
                 ]
-            ])
-            ->add('password', PasswordType::class, [
-                'required' => false,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Mot de passe',
-                    'class' => 'form-control text-center text-black',
-                    'id' => 'mdp'
-                ]
-            ])
-            
+            ]) 
         ;
     }
 

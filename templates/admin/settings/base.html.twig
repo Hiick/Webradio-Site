@@ -31,8 +31,7 @@
                     </div>
                     <!--input-->
 
-                    
-
+        
                     <div class="row mb-5">
                         <div class="col-sm">
                             <div class="form-group settingsAdmin" id="name">
@@ -47,6 +46,30 @@
                         </div>
                     </div>
 
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0 w-100 mb-5">
+
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-xl-12 d-flex flex-column align-items-center justify-content-center">
+                                <div class="">
+                                    <h2 class="h2 mb-2 text-black">Changer mon mot de passe</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm">
+
+                                <div class="form-group setting">
+                                    <input type='password' id="password" class='form-control text-center text-black' placeholder='mot de passe' value='{{user.password}}'>
+                                </div>
+
+                                <div class="form-group setting">
+                                    <input type="submit" id="savePassword" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;" value="Enregistrer">
+                                </div>
+                            </div>
+                        </div> 
+                    </form>
                 </div>  
             </div>
 

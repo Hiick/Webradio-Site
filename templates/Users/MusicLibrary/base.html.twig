@@ -40,7 +40,18 @@
                             <div class="card shadow mb-4">
                                 <!-- Card Body -->
                                 <div class="card-body music">
-                                    
+                                    <div class="row">
+                                        {% for music in musiclists %}
+                                          
+                                                <div class="col-xl-4 d-flex flex-column">
+                                                    <a href="#">
+                                                        <button class="bouton-id">&times;</button>
+                                                        <img src="https://i.pinimg.com/736x/06/2a/2c/062a2c6142605b83c340080137b84e57.jpg" alt="music" style="margin-left: 5px;" class="w-100"/>
+                                                        <span class="text-dark medium w-100 text-center" style="font-size: 0.6rem;">{{ music.name }}</span>
+                                                    </a>
+                                                </div>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>  

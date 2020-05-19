@@ -19,7 +19,7 @@
                     <div class="jumbotron pt-0">
                          <div class="container">
 
-                             {{ form_start(radioform) }}
+                             {#{ form_start(radioform) }}
                                 <div class="conteneur d-flex flex-column align-items-center justify-content-center">
                                     <div class="row recherche">
                                         <div class="col">
@@ -30,7 +30,7 @@
                                         </div>
                                     </div>
                                 </div>
-                             {{ form_end(radioform) }}
+                             {{ form_end(radioform) }#}
 
                             <div class="row">
                                 <div class="col ml-auto mr-auto">
@@ -55,7 +55,7 @@
                                                 <audio class='myaudio' id='track'>
                                                     <source src="{{ radio.urlRadio }}" type='audio/mp3' />Rien</audio>
                                                     <div id='player-container'>
-                                                        <div id='play-pause' class='play'>Play</div>
+                                                        <div id='play-pause{{loop.index}}' class='play'>Play</div>
                                                     </div>
                                             </td>
                                         </tr>

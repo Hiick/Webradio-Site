@@ -3,15 +3,18 @@
 namespace App\Controller\Users;
 
 use App\Controller\BaseController;
+use App\Entity\MusicLibrary;
+use App\Repository\MusicLibraryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-    /**
-     * @Route("/profile/library", name="profile.library.index")
+/**
+     * @Route("/profile/library")
      * @IsGranted("ROLE_USER")
      */
 class MusicLibraryController extends BaseController {
@@ -29,35 +32,59 @@ class MusicLibraryController extends BaseController {
      /**
      * @Route("/", name="profile.library.index")
      */
-    public function index(Request $request): Response {
+    public function index(MusicLibraryRepository $musicLibraryRepository): Response {
 
-        return $this->render('Users/MusicLibrary/base.html.twig');
+        return $this->render('Users/MusicLibrary/base.html.twig', [
+            'musiclists' => $musicLibraryRepository->findAll(),
+        ]);
     }
 
     /**
-     * @Route("/new", name="profile.library.new", )
+     * @Route("/new", name="profile.library.new", methods={"GET","POST"} )
      * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
    {
-        $content = $request->getContent();
+        $music = new MusicLibrary();
+        $user = $this->getUser();
 
-        if(!empty($content)) {
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
 
             $params = json_decode($content, true);
-
-           
-
-            
-           
-            //$this->em->persist($user);
-            //$this->em->flush();
-
+            $music->setName($params['filename']);
+            $user->addMusic($music);
+                
+            $this->em->persist($music);
+            $this->em->flush();
         }
 
-        return $this->responseApi([
-            "data" => json_decode($content, true)
-        ], 200);
+        
+        return new JsonResponse([
+            "Ok", 200
+        ]);
+
+    }
+
+    /**
+     * @Route("/delete/image/{id}", name="delete.music")
+     */
+    public function deleteMusic(MusicLibrary $music, Request $request) 
+    {
+        
+        if($request->isXmlHttpRequest()){
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+            $music->getId();
+            $nom = $music->getName();
+            
+            $this->em->remove($nom);
+            $this->em->flush();
+            return new JsonResponse(['success' => 1]);
+        }
+        return new JsonResponse(['error' => 'nom supprime']);
     }
 
 }

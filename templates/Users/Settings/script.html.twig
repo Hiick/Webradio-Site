@@ -1,4 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
@@ -73,10 +73,7 @@ $(document).ready(function() {
                             e.preventDefault();
                             console.log(downloadUrl)
 
-                             let username = $('#username').val().trim();
-                            let email = $('#email').val().trim();
-                            let channels = $('#channels').val().trim();
-
+                             let username = $('#username').val();
 
                                  $(".erreur").remove();
 
@@ -87,18 +84,7 @@ $(document).ready(function() {
                                 {
                                     $('#username').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Le nom d\'utilisateur doit être  moins de 10 caractères</div>');
                                 }
-                                if (email.length < 1)
-                                {
-                                $('#email').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Ce champ est obligatoire</div>'); 
-                                }else{
-                                    let regEx = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,125}[a-zA-Z]{2,63}$/;
-                                    let validEmail = regEx.test(email);
-
-                                    if(!validEmail)
-                                    {
-                                        $('#email').after('<span class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Merci de rentrer une adresse email valide</span>');
-                                    }
-                                }
+    
 
                             $.ajax({
                                     type: "POST", 
@@ -106,8 +92,6 @@ $(document).ready(function() {
                                     data: JSON.stringify({
                                         "downloadUrl": downloadUrl,
                                         "username": username,
-                                        "email": email,
-                                        "channels": channels,
                                     }),
                                     async: true,
                                     success: function(responseText) {
@@ -118,24 +102,82 @@ $(document).ready(function() {
                                     }
                             });
 
-                        });       
+                        });  
+
+                        $('#channelSave').click(function(e) {
+                            e.preventDefault();
+                            console.log(downloadUrl)
+
+                            let channels = $('#channels').val();
+
+                                 $(".erreur").remove();
+
+                                if (channels.length < 3) 
+                                {
+                                    $('#channels').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Le nom d\'utilisateur doit être de 3 caractères minimum et ne peux pas contenir d\'espace</div>'); 
+                                }else if(channels.length > 10)
+                                {
+                                    $('#channels').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Le nom d\'utilisateur doit être  moins de 10 caractères</div>');
+                                }
+
+                                if(channels.length > 3)
+                                {
+                                    $.ajax({
+                                        type: "POST", 
+                                        url: "/profile/setting/channel/{{app.user.id}}", 
+                                        data: JSON.stringify({
+                                            "downloadUrl": downloadUrl,
+                                            "channels": channels,
+                                        }),
+                                        async: true,
+                                        success: function(responseText) {
+                                            console.log('ici succès');
+                                            $('avatarChannel').attr('src', downloadUrl)
+                                            $('#mychannels').css("display", "block");
+                                        },
+                                        error: function (error) {
+                                            console.log(error);
+                                        }
+                                    }); 
+                                }
+
+                        });  
 
             });// i
         });
 
     }
 
-    });
+    /*$('#savePassword').click(function(e) {
+    e.preventDefault();
+            let password = $('#password').val();
 
-
+        if(password.length < 8) {
+            $('#password').after('<div class="erreur text-dark medium" style="font-size: small; margin-top: 10px;">Merci de rentrer un mot de passe de 8 caractères minimum</div>');
+        }
     
+        if(password.length > 8)
+        {
+            $.ajax({
+                type: "POST", 
+                url: "/profile/setting/password/{{app.user.id}}", 
+                data: JSON.stringify({
+                    "password": password,
+                }),
+                async: true,
+                success: function(responseText) {
+                    console.log('ici succès');
+                    
+                    $('#mypassword').css("display", "block");
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            }); 
+        }
+});   */
 
-    // Config Firebase (Ne pas oublié de le mettre dans le .env
-//https://stackoverflow.com/questions/51607751/symfony-3-4-return-array-jsonresponse
-    
-   
-
-    // On initialise l'appel à Firebase
+});
     
 });
 </script>

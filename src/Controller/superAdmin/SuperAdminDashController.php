@@ -91,10 +91,31 @@ class SuperAdminDashController extends BaseController {
 
             $this->em->persist($user);
             $this->em->flush();
-            $this->addFlash(
-                'success',
-                "Votre compte à ete mis à jour!!!!"
-            );
+           
+        }
+
+        return $this->render('superAdmin/settings/base.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/setting/password/{id}", name="superadmin.passwordChange")
+     * 
+     */
+    public function passwordChange(Request $request): Response {
+        $user = $this->getUser();
+
+        if($request->isXmlHttpRequest()){
+
+            $content = $request->getContent();
+
+            $params = json_decode($content, true);
+            $hash = $this->encoder->encodePassword($user, $params['password']);
+            $user->setAvatar($hash);
+
+            $this->em->persist($user);
+            $this->em->flush();
         }
 
         return $this->render('superAdmin/settings/base.html.twig', [

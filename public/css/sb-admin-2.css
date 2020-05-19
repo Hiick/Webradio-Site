@@ -312,7 +312,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 /*
 * player pause css*/
 
-#player-container #play-pause {
+#player-container #play-pause1 {
     cursor: pointer;
     text-indent: -999999px;
     height:70px;
@@ -328,12 +328,82 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
     transition: transform 0.3s;
 }
 
-#play-pause.play {
+#player-container #play-pause2 {
+    cursor: pointer;
+    text-indent: -999999px;
+    height:70px;
+    width: 70px;
+    background: #EF0051;
+    background-repeat:no-repeat;
+    background-image: url('../assets/play.png');
+    background-position:center;
+    background-size:17px;
+    border-radius: 50px;
+    padding: 20px;
+    box-shadow: 0 6px 10px 0 #0000001a,0 1px 18px 0 #0000001a, 0 3px 5px -1px #0003;
+    transition: transform 0.3s;
+}
+
+#player-container #play-pause3 {
+    cursor: pointer;
+    text-indent: -999999px;
+    height:70px;
+    width: 70px;
+    background: #EF0051;
+    background-repeat:no-repeat;
+    background-image: url('../assets/play.png');
+    background-position:center;
+    background-size:17px;
+    border-radius: 50px;
+    padding: 20px;
+    box-shadow: 0 6px 10px 0 #0000001a,0 1px 18px 0 #0000001a, 0 3px 5px -1px #0003;
+    transition: transform 0.3s;
+}
+
+#player-container #play-pause4 {
+    cursor: pointer;
+    text-indent: -999999px;
+    height:70px;
+    width: 70px;
+    background: #EF0051;
+    background-repeat:no-repeat;
+    background-image: url('../assets/play.png');
+    background-position:center;
+    background-size:17px;
+    border-radius: 50px;
+    padding: 20px;
+    box-shadow: 0 6px 10px 0 #0000001a,0 1px 18px 0 #0000001a, 0 3px 5px -1px #0003;
+    transition: transform 0.3s;
+}
+
+#play-pause1.play {
     background-image: url('../assets/play.png');
 }
-#play-pause.pause {
+#play-pause1.pause {
     background-image: url('../assets/pause.png') !important;
 }
+
+#play-pause2.play {
+    background-image: url('../assets/play.png');
+}
+#play-pause2.pause {
+    background-image: url('../assets/pause.png') !important;
+}
+
+#play-pause3.play {
+    background-image: url('../assets/play.png');
+}
+#play-pause3.pause {
+    background-image: url('../assets/pause.png') !important;
+}
+
+#play-pause4.play {
+    background-image: url('../assets/play.png');
+}
+#play-pause4.pause {
+    background-image: url('../assets/pause.png') !important;
+}
+
 #entete th{
     border-top: none !important;
     border-left: none !important;
@@ -584,6 +654,10 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
     #malist td, #entete th, #corps-table td {
         height: 65px;
     }
+    .titre-setting{
+        position: relative;
+        left: 75px
+    }
 
  }
 
@@ -787,10 +861,7 @@ display: none;
 
 }
 
-.titre-setting{
-    position: relative;
-    left: 75px
-}
+
 .image-upload > input
 {
     display: none;
@@ -822,3 +893,11 @@ label.bouton-ajout{
     position: relative;
     top: 30px
 }
+.bouton-id{
+    background-color: inherit;
+    border: none;
+    position: absolute;
+    top: 2px;
+}
+
+

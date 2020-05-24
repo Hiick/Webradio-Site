@@ -7,7 +7,7 @@
            </div>
            <div class="row">
                 <div class="col-sm-12">
-                        <form method="post" action="{{ path('app.login')}}">
+                        <form method="post" id="login_form">
                             {% if error is defined %}
                                  <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
@@ -20,10 +20,10 @@
                                 <input type="password" name="_password" class="form-control" id="password_login" placeholder="Mot de passe">
                             </div>
 
-                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                             <input type="hidden" name="api_token" id="api_token" value="">
 
                             <div class="form-group champ">
-                                <button  id="login" type="submit" class="form-control border-0 font-weight-bold text-white" style="background-color:#EF0051;">Connexion</button>
+                                <button  id="login" type="submit" class="form-control border-0 font-weight-bold text-white btn_submit" style="background-color:#EF0051;">Connexion</button>
                             </div>
 
                                 <div class="fb-login-button" data-width="280" data-size="medium" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false">
@@ -41,4 +41,3 @@
         </div>
     </div>
 </div>
-{% include 'login/script.html.twig' %}

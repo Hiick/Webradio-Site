@@ -2,7 +2,6 @@
 
 namespace App\Security;
 
-use App\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -58,6 +57,7 @@ class UsersAuthenticator extends AbstractFormLoginAuthenticator
             'email' => $request->request->get('_username'),
             'password' => $request->request->get('_password'),
             'csrf_token' => $request->request->get('_csrf_token'),
+            'api_token' => $request->request->get('api_token'),
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,

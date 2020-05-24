@@ -2,8 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\User;
-use App\Entity\UserSearch;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
@@ -19,10 +18,10 @@ class UserRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($registry, Users::class);
     }
 
-    public function findAllVisibleQuery(UserSearch $search): Query
+    /*public function findAllVisibleQuery( $search): Query
     {
         $query = $this->findVisibleQuery();
 
@@ -40,7 +39,7 @@ class UserRepository extends ServiceEntityRepository
 
         return $query->setMaxResults(4)
                 ->getQuery();
-    }
+    }*/
 
     /**
      * @return User[]
@@ -64,7 +63,7 @@ class UserRepository extends ServiceEntityRepository
 
     }
 
-    public function findUserByMail(User $email) 
+    /*public function findUserByMail(User $email) 
     {    
         return $this->findVisibleQuery()
         ->andWhere('u.email = :email')
@@ -72,7 +71,7 @@ class UserRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
 
-    }
+    }*/
 
     public function findUserById($id) 
     {    

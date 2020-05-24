@@ -21,10 +21,9 @@ $(document).ready(function() {
 
     $.ajax({
     method: "GET", 
-    url: "/superadmin/superadmin-firebase", 
+    url: "/firebase", 
     async: true,
     success: function(data) {
-    //console.log(data.apiKey+" "+data.authDomain+" "+data.databaseURL+" "+data.projectId+" "+data.storageBucket);
     
         firebaseConfig = {
             apiKey: data.apiKey,

@@ -23,7 +23,7 @@ class SignalementsRepository extends ServiceEntityRepository
         parent::__construct($registry, Signalements::class);
     }
 
-    public function findAllVisibleQuery(UserSearch $search): Query
+    /*public function findAllVisibleQuery(UserSearch $search): Query
     {
         $query = $this->findVisibleQuery();
 
@@ -35,7 +35,7 @@ class SignalementsRepository extends ServiceEntityRepository
 
         return $query->setMaxResults(4)
                 ->getQuery();
-    }
+    }*/
     
     /**
      * @return Users[]

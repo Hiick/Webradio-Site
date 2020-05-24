@@ -2,71 +2,66 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\Users;
 use App\Security\UsersAuthenticator;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Unirest;
+
 
 class RegisterController extends BaseController
 {
 
-    private $em;
-
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $encoder;
-
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
-    {
-        $this->em = $em;
-        $this->encoder = $encoder;
-    }
+    
      /**
      * @Route("/register", name="user.registration")
      */
 
-        public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UsersAuthenticator $authenticator): Response
+    public function register(Request $request, GuardAuthenticatorHandler $guardHandler, UsersAuthenticator $authenticator): Response
     {
-        $content = $request->getContent();
 
-        $user = new User();
+        if($request->isMethod('POST')){
 
-        if(!empty($content)) {
+            $content = $request->getContent();
 
             $params = json_decode($content, true);
 
-            $user->setAvatar("https://firebasestorage.googleapis.com/v0/b/webradio-stream.appspot.com/o/User%2F70element-1.png?alt=media&token=fa8fa419-9e5f-4738-b2de-85536002a0d1");
-            $user->setUsername($params['username']);
-            $user->setEmail($params['email']);
-            $user->setChannels($params['username']."Sound");
-            $user->setRole("ROLE_USER");
-            $hash = $this->encoder->encodePassword($user, $params['password']);
-            $user->setPassword($hash);
-            $user->setStatus("Active");
-           
+
+            $email = $params['email'];
+            $username = $params['username'];
+            $password = $params['password'];
+
+            $headers = array('Accept' => 'application/json');
+            $query = array('email' => $email, 'username' => $username, 'password' => $password);
+ 
+            $url = 'https://webradio-stream.herokuapp.com/auth/register';
+            $body = Unirest\Request\Body::json($query);
+ 
+            $response = Unirest\Request::post($url,$headers,$body);
+ 
+            return new Response(json_encode($response));
+
+            dd($response);
 
         }
-        
-        $this->em->persist($user);
-        $this->em->flush();
-
+      
             // do anything else you need here, like send an email
 
-            return $guardHandler->authenticateUserAndHandleSuccess(
+            /*return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
                 $authenticator,
                 'admin' // firewall name in security.yaml
-            );
+            );*/
         
 
-        return $this->render('pages/home.html.twig');
+        return $this->render('register/modal.html.twig');
     }
+
+    
 
          
 }

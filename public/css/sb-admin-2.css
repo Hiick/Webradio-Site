@@ -278,7 +278,7 @@ a.btn.bouton-password{color: white; box-shadow: 0 6px 10px 0 #0000001a,0 1px 18p
 #aside-nav{width: 100%;}
 
 
-.form-group.champ {margin-bottom: 1rem;}
+.form-group.champ {margin-bottom: .95rem;}
 .champ .form-control {border-radius: .95rem !important;}
 
 .form-group.champ input.form-control {text-align: center !important;}

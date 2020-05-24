@@ -1,12 +1,25 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
+<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
+<p id="fb-root"></p>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v6.0&appId=1268121773351660&autoLogAppEvents=1">
+</script>
 <script>
 
 $(document).ready(function() {
     
     let track =  document.getElementById("track");
-    $(document).ready(function() {
-    
-    let track =  document.getElementById("track");
+   
     
     function playPause1 () {
 
@@ -18,7 +31,7 @@ $(document).ready(function() {
             track.pause();
             $("#play-pause1").removeClass('pause');
         }
-    } 
+    } //fin 1
 
     function playPause2 () {
 
@@ -30,7 +43,7 @@ $(document).ready(function() {
             track.pause();
             $("#play-pause2").removeClass('pause');
         }
-    }  
+    }  //fin 2
 
     function playPause3 () {
 
@@ -42,9 +55,9 @@ $(document).ready(function() {
             track.pause();
             $("#play-pause3").removeClass('pause');
         }
-    }
+    } //fin 3
 
-        function playPause4 () {
+    function playPause4 () {
 
         if(track.paused) {
 
@@ -54,25 +67,122 @@ $(document).ready(function() {
             track.pause();
             $("#play-pause4").removeClass('pause');
         }
-    }
+    } //fin 4
 
-     $('#play-pause1').click(function() {
+    $('#play-pause1').click(function() {
         playPause1();
-    });
+    });// cli 1
 
-     $('#play-pause2').click(function() {
+    $('#play-pause2').click(function() {
         playPause2();
-    });
+    });  // cli 2
 
-     $('#play-pause3').click(function() {
+    $('#play-pause3').click(function() {
         playPause3();
-    });
+    }); // cli 3
 
      $('#play-pause4').click(function() {
         playPause4();
-    });
-});
+    });// cli 4
+
+    $(".show_token").hide();
+    $(".image-upload").hide();
+    $(".image-upload-channel").hide();
+    $(".show_login_token").hide();
+    $("#forgot_pass_form").hide();
+    let user = {};
+    let channel = {};
+    let downloadURL;
+    let downloadURLChannel;
+    let downloadURLRadio;
+
+    const reset = () => {
+        $(".btn_submit").attr("disabled", false);
+        $(".btn_submit").css("background-color", "#EF0051");
+        $(".btn_submit").hover(() => { $(".btn_submit").css("background-color", "#D31052") })
+    };
+
+    const disable = () => {
+        $(".btn_submit").attr("disabled", true);
+        $(".btn_submit").css("background-color", "gray");
+    }
+
+    $("#register_form").on('submit', (e) => {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        disable()
+
+        let data = {
+            email: $("#register_email").val(),
+            username: $("#register_username").val(),
+            password: $("#register_password").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: 'https://webradio-stream.herokuapp.com/auth/register',
+            data: data,
+            success: (response) =>
+            {
+                reset()
+                if (response.message.token) {
+                    localStorage.setItem("token", response.message.token);
+                    $('#register_response').html("");
+                    $('#register_json_response').html(JSON.stringify(response, undefined, 4));
+                    $(".show_token").show();
+                    $("#new_token").html(response.message.token);
+                } else {
+                    $('#register_response').html("");
+                    $('#register_json_response').html(JSON.stringify(response, undefined, 4));
+                }
+            },
+            error: (err) => {
+                reset();
+                $('#register_response').html("");
+                $('#register_json_response').html(JSON.stringify(err.responseJSON, undefined, 4));
+            }
+        }); //fin register
+    }); //register
+
+    $("#login_form").on('submit', (e) => {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        disable();
+
+        let data = {
+            email: $("#login_email").val(),
+            password: $("#login_password").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: 'https://webradio-stream.herokuapp.com/auth/login',
+            data: data,
+            success: (response) =>
+            {
+                reset();
+                if (response.message.token) {
+                    localStorage.setItem("token", response.message.token);
+                    $('#login_response').html("");
+                    $('#login_json_response').html(JSON.stringify(response, undefined, 4));
+                    $(".show_login_token").show();
+                    $("#new_login_token").html(response.message.token);
+                    console.log(response.message)
+                } else {
+                    $('#login_response').html("");
+                    $('#login_json_response').html(JSON.stringify(response, undefined, 4));
+                }
+            },
+            error: (err) => {
+                reset();
+                $('#login_response').html("");
+                $('#login_json_response').html(JSON.stringify(err.responseJSON, undefined, 4));
+                console.log(err.responseJSON);
+            }
+        });
+    });// login
 
 });
+
+
 
 </script>
+

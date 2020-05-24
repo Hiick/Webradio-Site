@@ -4,7 +4,7 @@ security:
         #users_in_memory: { memory: null }
         from_database:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Users
                 property: email
     firewalls:
         dev:
@@ -19,9 +19,7 @@ security:
             logout:
                 path: /logout
                 target: /
-            guard:
-                authenticators:
-                    - App\Security\UsersAuthenticator
+           
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -43,6 +41,6 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     encoders:
-        App\Entity\User: 
+        App\Entity\Users: 
                 algorithm: bcrypt
                 cost: 12
